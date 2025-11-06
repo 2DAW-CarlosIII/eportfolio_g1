@@ -18,7 +18,7 @@ Route::get('logout', function () {
 // ----------------------------------------
 Route::prefix('familias-profesionales')->group(function () {
     Route::get('/', function () {
-        return 'familias profesionales';
+        return 'Listado familias profesionales';
     });
 
     Route::get('create', function () {
