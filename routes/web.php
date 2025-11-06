@@ -39,6 +39,6 @@ Route::prefix('familias-profesionales')->group(function () {
 Route::get('perfil/{id?}', function ($id = null) {
     if ($id === null)
         return 'Visualizar el usuario propio';
-    return 'Visualizar el usuario ' . $id;
+    return 'Visualizar el usuario de ' . $id;
 }) -> where('id', '[0-9]+');
 
