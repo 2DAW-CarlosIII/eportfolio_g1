@@ -10,8 +10,7 @@
 						<!-- Features -->
 							<section id="features">
 								<header class="style1">
-									<h2>Dolor consequat feugiat amet veroeros</h2>
-									<p>Feugiat dolor nullam orci pretium phasellus justo</p>
+									@yield('content')
 								</header>
 								<div class="feature-list">
 									<div class="row">
