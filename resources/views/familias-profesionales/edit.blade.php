@@ -6,5 +6,5 @@
 @endsection
 
 @section('content')
-    <h2></h2>
+    <h2>Pagina edit, ID para editar: {{ $id }}</h2>
 @endsection

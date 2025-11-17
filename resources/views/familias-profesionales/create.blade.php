@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    <h2></h2>
+    <h2>Pagina create</h2>
 @endsection
