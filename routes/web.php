@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Monolog\Handler\RotatingFileHandler;
 
 Route::get('/', function () {
-    return 'Pantalla principal';
+    return view('home');
 });
 
 // ----------------------------------------
