@@ -26,11 +26,13 @@
 											</ul>
 										</li>
 										<li><a href="#">Nisl tempus</a></li>
+
 									</ul>
 								</li>
 								<li><a href="left-sidebar.blade.php">Left Sidebar</a></li>
 								<li><a href="right-sidebar.blade.php">Right Sidebar</a></li>
 								<li><a href="no-sidebar.blade.php">No Sidebar</a></li>
+                                @yield('menu')
 							</ul>
 						</nav>
 
