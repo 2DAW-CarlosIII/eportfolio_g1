@@ -47,6 +47,7 @@
             </div>
             <div class="col-5 col-12-medium">
                 <ul>
+                    @yield('menu')
                     <li><a href="#" class="button large icon solid fa-arrow-circle-right">Ok let's f*ing go</a></li>
                     <li><a href="#" class="button alt large icon solid fa-question-circle">More info</a></li>
                 </ul>
