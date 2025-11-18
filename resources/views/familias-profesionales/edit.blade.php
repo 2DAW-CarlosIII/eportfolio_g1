@@ -8,3 +8,7 @@
 @section('content')
     <h2>Pagina edit, ID para editar: {{ $id }}</h2>
 @endsection
+
+@section('menu')
+    <li>Opcion adicional</li>
+@endsection

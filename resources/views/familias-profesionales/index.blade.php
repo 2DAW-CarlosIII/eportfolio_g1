@@ -8,3 +8,7 @@
 @section('content')
     <h2>Página principal de familias profesionales</h2>
 @endsection
+
+@section('menu')
+    <li>Opcion adicional</li>
+@endsection

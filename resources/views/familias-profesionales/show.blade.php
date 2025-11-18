@@ -8,3 +8,7 @@
 @section('content')
     <h2>Pagina show, ID:{{ $id }}</h2>
 @endsection
+
+@section('menu')
+    <li>Opcion adicional</li>
+@endsection

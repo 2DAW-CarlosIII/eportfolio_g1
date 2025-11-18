@@ -7,3 +7,7 @@
 @section('content')
     <h2>Pagina create</h2>
 @endsection
+
+@section('menu')
+    <li>Opcion adicional</li>
+@endsection
