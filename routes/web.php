@@ -5,14 +5,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
-/*
-Route::get('/', function () {
-    return 'Pantalla principal';
-});
-*/
+
 // ----------------------------------------
 Route::get('login', function () {
-    return "Login usuario";
+    return view('auth.login');
 });
 Route::get('logout', function () {
     return "Logout usuario";
@@ -22,19 +18,19 @@ Route::get('logout', function () {
 // ----------------------------------------
 Route::prefix('familias-profesionales')->group(function () {
     Route::get('/', function () {
-        return 'Listado familias profesionales';
+        return view('familias-profesionales.index');
     });
 
     Route::get('/create', function () {
-        return 'Añadir familia profesional';
+        return view('familias-profesionales.create');
     });
 
     Route::get('/show/{id}	', function ($id) {
-        return 'Vista detalle familia profesional ' . $id;
+        return view('familias-profesionales.show',array('id'=>$id));
     }) -> where('id', '[0-9]+');
 
     Route::get('/edit/{id}', function ($id) {
-        return 'Modificar familia profesional ' . $id;
+        return view('familias-profesionales.edit', array('id'=>$id));
     }) -> where('id', '[0-9]+');
 });
 
@@ -45,4 +41,3 @@ Route::get('perfil/{id?}', function ($id = null) {
         return 'Visualizar el usuario propio';
     return 'Visualizar el usuario de ' . $id;
 }) -> where('id', '[0-9]+');
-
