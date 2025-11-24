@@ -25,18 +25,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="docente_id">Docente</label>
-	                        <input type="number" name="docente_id" id="docente_id" value="{{$familia_profesional['docente_id']}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dominio">Dominio</label>
-	                        <input type="text" name="dominio" id="dominio" class="form-control" value="{{$familia_profesional['dominio']}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="descripcion">Metadatos</label>
-                            <textarea name="metadatos" id="metadatos" class="form-control" rows="3" ></textarea>
+                            <label for="codigo">Codigo</label>
+	                        <input type="text" name="codigo" id="codigo" value="{{$familia_profesional['codigo']}} class="form-control">
                         </div>
 
                         <div class="form-group text-center">
