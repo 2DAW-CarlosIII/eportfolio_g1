@@ -3,6 +3,11 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FamiliasProfesionalesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FamiliasProfesionalesController;
+use App\Http\Controllers\HomeController;
+
+
+Route::get('/', [HomeController::class, 'getHome']);
 
 Route::get('/', [HomeController::class, 'getHome']);
 
