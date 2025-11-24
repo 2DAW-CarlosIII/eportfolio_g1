@@ -31,7 +31,7 @@ class FamiliasProfesionalesController extends Controller
             ->with('id', $id);
     }
 
-    public static $familias_profesionales = array(
+    private $familias_profesionales = array(
         array('codigo' => 'ADG', 'nombre' => 'ACTIVIDADES FÍSICAS Y DEPORTIVAS'),
         array('codigo' => 'AFD', 'nombre' => 'ADMINISTRACIÓN Y GESTIÓN'),
         array('codigo' => 'AGA', 'nombre' => 'AGRARIA'),
