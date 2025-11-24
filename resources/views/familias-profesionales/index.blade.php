@@ -6,7 +6,31 @@
 @endsection
 
 @section('content')
-    <h2>Página principal de familias profesionales</h2>
+    <div class="row">
+
+        @foreach ($familias_profesionales as $key => $familia_profesional)
+            <div class="col-4 col-6-medium col-12-small">
+                <section class="box">
+                    <a href="#" class="image featured"><img src="{{ asset('/images/mp-logo.png') }}" alt="" /></a>
+                    <header>
+                        <h3>{{ $familia_profesional['nombre'] }}</h3>
+                    </header>
+                    <p>
+                        <a href="http://github.com/2DAW-CarlosIII/{{ $familia_profesional['dominio'] }}">
+                            http://github.com/2DAW-CarlosIII/{{ $familia_profesional['dominio'] }}
+                        </a>
+                    </p>
+                    <footer>
+                        <ul class="actions">
+                            <li><a href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getShow'], ['id' => $key]) }}"
+                                    class="button alt">Más info</a></li>
+                        </ul>
+                    </footer>
+                </section>
+            </div>
+        @endforeach
+
+    </div>
 @endsection
 
 @section('menu')
