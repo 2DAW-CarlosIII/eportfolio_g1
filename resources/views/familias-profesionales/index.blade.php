@@ -15,11 +15,7 @@
                     <header>
                         <h3>{{ $familia_profesional['nombre'] }}</h3>
                     </header>
-                    <p>
-                        <a href="http://github.com/2DAW-CarlosIII/{{ $familia_profesional['dominio'] }}">
-                            http://github.com/2DAW-CarlosIII/{{ $familia_profesional['dominio'] }}
-                        </a>
-                    </p>
+                        <p>Codigo: {{ $familia_profesional['codigo'] }}</p>
                     <footer>
                         <ul class="actions">
                             <li><a href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getShow'], ['id' => $key]) }}"
