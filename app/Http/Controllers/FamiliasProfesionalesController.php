@@ -9,7 +9,7 @@ class FamiliasProfesionalesController extends Controller
     public function getIndex()
     {
         return view('familias-profesionales.index')
-        ->with('familias_profesionales' , $this->arrayProyectos);
+            ->with('familias_profesionales', $this->familias_profesionales);
     }
 
     public function getCreate()
@@ -20,117 +20,43 @@ class FamiliasProfesionalesController extends Controller
     public function getShow($id)
     {
         return view('familias-profesionales.show')
-            ->with('familia_profesional', $this->arrayProyectos[$id])
+            ->with('familia_profesional', $this->familias_profesionales[$id])
             ->with('id', $id);
     }
 
     public function getEdit($id)
     {
         return view('familias-profesionales.edit')
-            ->with('familia_profesional', $this->arrayProyectos[$id])
+            ->with('familia_profesional', $this->familias_profesionales[$id])
             ->with('id', $id);
     }
 
-    private $arrayProyectos = [
-        [
-            'docente_id' => 1,
-            'nombre' => 'Tecnologías de la Información',
-            'dominio' => 'TecnologiaInformacion',
-            'metadatos' => [
-                'fecha_inicio' => '2023-01-15',
-                'fecha_fin' => '2023-05-30',
-                'calificacion' => 9.5
-            ]
-        ],
-        [
-            'docente_id' => 1,
-            'nombre' => 'Diseño Gráfico',
-            'dominio' => 'DisenyoGrafico',
-            'metadatos' => [
-                'fecha_inicio' => '2023-02-10',
-                'fecha_fin' => '2023-06-20',
-                'calificacion' => 4.0
-            ]
-        ],
-        [
-            'docente_id' => 2,
-            'nombre' => 'Electrónica',
-            'dominio' => 'Electronica',
-            'metadatos' => [
-                'fecha_inicio' => '2023-03-05',
-                'fecha_fin' => '2023-07-15',
-                'calificacion' => 9.2
-            ]
-        ],
-        [
-            'docente_id' => 2,
-            'nombre' => 'Ingeniería Civil',
-            'dominio' => 'IngenieriaCivil',
-            'metadatos' => [
-                'fecha_inicio' => '2023-04-20',
-                'fecha_fin' => '2023-08-25',
-                'calificacion' => 7.8
-            ]
-        ],
-        [
-            'docente_id' => 3,
-            'nombre' => 'Gastronomía',
-            'dominio' => 'Gastronomia',
-            'metadatos' => [
-                'fecha_inicio' => '2023-05-10',
-                'fecha_fin' => '2023-09-30',
-                'calificacion' => 8.5
-            ]
-        ],
-        [
-            'docente_id' => 3,
-            'nombre' => 'Medicina',
-            'dominio' => 'Medicina',
-            'metadatos' => [
-                'fecha_inicio' => '2023-06-15',
-                'fecha_fin' => '2023-10-30',
-                'calificacion' => 9.0
-            ]
-        ],
-        [
-            'docente_id' => 3,
-            'nombre' => 'Mecatrónica',
-            'dominio' => 'Mecatronica',
-            'metadatos' => [
-                'fecha_inicio' => '2023-07-10',
-                'fecha_fin' => '2023-11-20',
-                'calificacion' => 8.7
-            ]
-        ],
-        [
-            'docente_id' => 4,
-            'nombre' => 'Arquitectura',
-            'dominio' => 'Arquitectura',
-            'metadatos' => [
-                'fecha_inicio' => '2023-08-05',
-                'fecha_fin' => '2023-12-15',
-                'calificacion' => 8.9
-            ]
-        ],
-        [
-            'docente_id' => 4,
-            'nombre' => 'Automoción',
-            'dominio' => 'Automocion',
-            'metadatos' => [
-                'fecha_inicio' => '2023-09-10',
-                'fecha_fin' => '2024-01-20',
-                'calificacion' => 8.2
-            ]
-        ],
-        [
-            'docente_id' => 4,
-            'nombre' => 'Turismo',
-            'dominio' => 'Turismo',
-            'metadatos' => [
-                'fecha_inicio' => '2023-10-15',
-                'fecha_fin' => '2024-02-28',
-                'calificacion' => 9.4
-            ]
-        ],
-    ];
+    public static $familias_profesionales = array(
+        array('codigo' => 'ADG', 'nombre' => 'ACTIVIDADES FÍSICAS Y DEPORTIVAS'),
+        array('codigo' => 'AFD', 'nombre' => 'ADMINISTRACIÓN Y GESTIÓN'),
+        array('codigo' => 'AGA', 'nombre' => 'AGRARIA'),
+        array('codigo' => 'ARA', 'nombre' => 'ARTES Y ARTESANÍAS'),
+        array('codigo' => 'ARG', 'nombre' => 'ARTES GRÁFICAS'),
+        array('codigo' => 'COM', 'nombre' => 'COMERCIO Y MARKETING'),
+        array('codigo' => 'ELE', 'nombre' => 'ELECTRICIDAD Y ELECTRÓNICA'),
+        array('codigo' => 'ENA', 'nombre' => 'ENERGÍA Y AGUA'),
+        array('codigo' => 'EOC', 'nombre' => 'EDIFICACIÓN Y OBRA CIVIL'),
+        array('codigo' => 'FME', 'nombre' => 'FABRICACIÓN MECÁNICA'),
+        array('codigo' => 'HOT', 'nombre' => 'HOSTELERÍA Y TURISMO'),
+        array('codigo' => 'IEX', 'nombre' => 'INDUSTRIAS EXTRACTIVAS'),
+        array('codigo' => 'IFC', 'nombre' => 'INFORMÁTICA Y COMUNICACIONES'),
+        array('codigo' => 'IMA', 'nombre' => 'INSTALACIÓN Y MANTENIMIENTO'),
+        array('codigo' => 'IMP', 'nombre' => 'IMAGEN PERSONAL'),
+        array('codigo' => 'IMS', 'nombre' => 'IMAGEN Y SONIDO'),
+        array('codigo' => 'INA', 'nombre' => 'INDUSTRIAS ALIMENTARIAS'),
+        array('codigo' => 'MAM', 'nombre' => 'MADERA, MUEBLE Y CORCHO'),
+        array('codigo' => 'MAP', 'nombre' => 'MARITÍMO-PESQUERA'),
+        array('codigo' => 'QUI', 'nombre' => 'QUÍMICA'),
+        array('codigo' => 'SAN', 'nombre' => 'SANIDAD'),
+        array('codigo' => 'SEA', 'nombre' => 'SEGURIDAD Y MEDIO AMBIENTE'),
+        array('codigo' => 'SSC', 'nombre' => 'SERVICIOS SOCIOCULTURALES Y A LA COMUNIDAD'),
+        array('codigo' => 'TCP', 'nombre' => 'TEXTIL, CONFECCIÓN Y PIEL'),
+        array('codigo' => 'TMV', 'nombre' => 'TRANSPORTE Y MANTENIMIENTO DE VEHÍCULOS'),
+        array('codigo' => 'VIC', 'nombre' => 'VIDRIO Y CERÁMICA')
+    );
 }
