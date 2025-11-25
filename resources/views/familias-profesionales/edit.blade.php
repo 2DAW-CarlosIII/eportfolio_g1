@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" value="{{$familia_profesional['codigo']}} class="form-control">
+	                        <input type="text" name="codigo" id="codigo" value="{{$familia_profesional['codigo']}}" class="form-control">
                         </div>
 
                         <div class="form-group text-center">
