@@ -8,7 +8,7 @@
 @section('content')
     <div class="row m-4">
         <div class="col-sm-4">
-            <a href="#" class="image featured"><img src="{{ asset('/images/mp-logo.png') }}" alt="" style="width: 100px"/></a>
+            <a href="#" class="images featured"><img src="{{ asset('/images/logo.png') }}" alt="" style="width:15vh; height: 15vh;"/></a>
         </div>
         <div class="col-sm-8">
 

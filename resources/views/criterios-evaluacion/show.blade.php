@@ -11,8 +11,7 @@
             <a href="#" class="images featured"><img src="{{ asset('/images/logo.png') }}" alt="" style="width:15vh; height: 15vh;"/></a>
         </div>
         <div class="col-sm-8">
-
-            <header>
+            <header style="max-width: 100vh;">
                 <h2>Codigo: {{ $criterio_evaluacion->codigo }}</h2>
                 <h4>Descripción: {{$criterio_evaluacion->descripcion}}</h4>
                 <h4>Fecha de creación: {{ $criterio_evaluacion->created_at }}</h4>
