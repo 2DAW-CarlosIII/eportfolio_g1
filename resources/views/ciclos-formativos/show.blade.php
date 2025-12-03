@@ -8,11 +8,11 @@
 @section('content')
     <div class="row m-4">
         <div class="col-sm-4">
-            <a href="#" class="image featured"><img src="{{ asset('/images/mp-logo.png') }}" alt="" style="width: 100px"/></a>
+            <a href="#" class="image featured"><img src="{{ asset('/images/logo.png') }}" alt="" style="width: 15vh; height: 15vh;"/></a>
         </div>
         <div class="col-sm-8">
 
-            <header>
+            <header style="max-width: 100vh;">
                 <h3>{{ $ciclo_formativo->nombre }}</h3>
                 <h4>Codigo: {{$ciclo_formativo->codigo}}</h4>
                 <p>Grado: {{$ciclo_formativo->grado}}</p>
