@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CiclosFormativosController;
+use App\Http\Controllers\CriteriosEvaluacionController;
+use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FamiliasProfesionalesController;
 use Illuminate\Support\Facades\Route;
