@@ -21,12 +21,12 @@
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{$familia_profesional['nombre']}}">
+                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{$familia_profesional->nombre}}">
                         </div>
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" value="{{$familia_profesional['codigo']}}" class="form-control">
+	                        <input type="text" name="codigo" id="codigo" value="{{$familia_profesional->codigo}}" class="form-control">
                         </div>
 
                         <div class="form-group text-center">
