@@ -13,8 +13,8 @@
         <div class="col-sm-8">
 
             <header>
-                <h3>{{ $familia_profesional['nombre'] }}</h3>
-                <h4>Codigo: {{$familia_profesional['codigo']}}</h4>
+                <h3>{{ $familia_profesional->nombre }}</h3>
+                <h4>Codigo: {{$familia_profesional->codigo}}</h4>
             </header>
             <footer>
                 <p></p>
