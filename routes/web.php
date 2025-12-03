@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CiclosFormativosController;
+use App\Http\Controllers\CriteriosEvaluacionController;
+use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FamiliasProfesionalesController;
 use App\Http\Controllers\CriteriosEvaluacionController;
@@ -84,6 +87,52 @@ Route::prefix('ciclos_formativos')->group(function () {
 
 });
 
+Route::prefix('ciclos-formativos')->group(function(){
+    Route::get('/', [CiclosFormativosController::class, 'getIndex']);
+
+    Route::get('create', [CiclosFormativosController::class, 'getCreate']);
+
+    Route::get('/show/{id}', [CiclosFormativosController::class, 'getShow']) -> where('id', '[0-9]+');
+
+    Route::get('/edit/{id}', [CiclosFormativosController::class, 'getEdit']) -> where('id', '[0-9]+');
+
+    Route::post('store', [CiclosFormativosController::class, 'store']);
+
+    Route::put('update/{id}', [CiclosFormativosController::class, 'update'])-> where('id', '[0-9]+');
+});
+
+Route::prefix('criterios-evaluacion')->group(function () {
+    Route::get('/', [CriteriosEvaluacionController::class, 'getIndex']);
+
+    Route::get('create', [CriteriosEvaluacionController::class, 'getCreate']);
+
+    Route::get('/show/{id}', [CriteriosEvaluacionController::class, 'getShow']) -> where('id', '[0-9]+');
+
+    Route::get('/edit/{id}', [CriteriosEvaluacionController::class, 'getEdit']) -> where('id', '[0-9]+');
+
+    Route::post('store', [CriteriosEvaluacionController::class, 'store']);
+
+    Route::put('update/{id}', [CriteriosEvaluacionController::class, 'update'])-> where('id', '[0-9]+');
+
+
+});
+
+
+Route::prefix('resultados-aprendizaje')->group(function () {
+    Route::get('/', [ResultadosAprendizajeController::class, 'getIndex']);
+
+    Route::get('create', [ResultadosAprendizajeController::class, 'getCreate']);
+
+    Route::get('/show/{id}', [ResultadosAprendizajeController::class, 'getShow']) -> where('id', '[0-9]+');
+
+    Route::get('/edit/{id}', [ResultadosAprendizajeController::class, 'getEdit']) -> where('id', '[0-9]+');
+
+    Route::post('store', [ResultadosAprendizajeController::class, 'store']);
+
+    Route::put('update/{id}', [ResultadosAprendizajeController::class, 'update'])-> where('id', '[0-9]+');
+
+
+});
 
 
 
