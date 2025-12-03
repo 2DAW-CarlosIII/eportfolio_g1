@@ -10,7 +10,7 @@ use Database\Seeders\FamiliasProfesionalesTableSeeder;
 use Database\Seeders\CiclosFormativosTableSeeder;
 use Database\Seeders\ResultadosAprendizajeTableSeeder;
 use Database\Seeders\CriteriosEvaluacionTableSeeder;
-use Schema;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         $this->call(FamiliasProfesionalesTableSeeder::class);
-        //$this->call(CiclosFormativosTableSeeder::class);
-        //$this->call(ResultadosAprendizajeTableSeeder::class);
-        //$this->call(CriteriosEvaluacionTableSeeder::class);
+        $this->call(CiclosFormativosTableSeeder::class);
+        $this->call(ResultadosAprendizajeTableSeeder::class);
+        $this->call(CriteriosEvaluacionTableSeeder::class);
 
 
         Model::reguard();
