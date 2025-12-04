@@ -22,12 +22,12 @@
 
                         <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" required>
+                        <input type="text" name="nombre" id="nombre" class="form-control" required maxlength="255">
                         </div>
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" class="form-control" required>
+	                        <input type="text" name="codigo" id="codigo" class="form-control" required maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="grado">Grado</label>

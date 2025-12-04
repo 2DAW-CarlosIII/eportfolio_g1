@@ -21,12 +21,12 @@
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{$ciclo_formativo->nombre}}" required>
+                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{$ciclo_formativo->nombre}}" required maxlength="255">
                         </div>
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" value="{{$ciclo_formativo->codigo}}" class="form-control" required>
+	                        <input type="text" name="codigo" id="codigo" value="{{$ciclo_formativo->codigo}}" class="form-control" required maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="grado">Grado</label>
