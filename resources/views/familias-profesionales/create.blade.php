@@ -16,18 +16,18 @@
                 <div class="card-body" style="padding:30px">
 
 
-                    <form action="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'store']) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'postCreate']) }}" method="POST">
 
                         @csrf
 
                         <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <input type="text" name="nombre" id="nombre" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" class="form-control">
+	                        <input type="text" name="codigo" id="codigo" class="form-control" required>
                         </div>
 
                         <div class="form-group text-center">
