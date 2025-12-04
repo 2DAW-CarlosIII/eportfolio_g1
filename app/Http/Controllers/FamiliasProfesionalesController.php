@@ -37,18 +37,20 @@ class FamiliasProfesionalesController extends Controller
         $familia_profesional = new FamiliaProfesional();
         $familia_profesional->nombre = $request->nombre;
         $familia_profesional->codigo = $request->codigo;
+        $familia_profesional->descripcion = $request->descripcion;
         $familia_profesional->save();
 
-        return redirect()->action([FamiliasProfesionalesController::class, 'getIndex']);
+        return redirect()->action([FamiliasProfesionalesController::class, 'getShow'], ['id'=> $familia_profesional->id]);
     }
 
     public function putCreate(Request $request){
         $familia_profesional = FamiliaProfesional::findorFail($request->id);
         $familia_profesional->nombre = $request->nombre;
         $familia_profesional->codigo = $request->codigo;
+        $familia_profesional->descripcion = $request->descripcion;
         $familia_profesional->save();
     
-        return redirect()->action([FamiliasProfesionalesController::class, 'getIndex']);
+        return redirect()->action([FamiliasProfesionalesController::class, 'getShow'], ['id'=> $familia_profesional->id]);
     }
 
     

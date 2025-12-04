@@ -15,6 +15,7 @@
             <header>
                 <h3>{{ $familia_profesional->nombre }}</h3>
                 <h4>Codigo: {{$familia_profesional->codigo}}</h4>
+                <p>Descripcion: {{$familia_profesional->descripcion}}</p>
             </header>
             <footer>
                 <p></p>
