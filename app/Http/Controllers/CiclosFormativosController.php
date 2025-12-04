@@ -33,4 +33,28 @@ class CiclosFormativosController extends Controller
             ->with('id', $id)
             ->with('grados', CicloFormativo::GRADOS);
     }
+
+    public function postCreate(Request $request)
+    {
+        $ciclo_formativo = new CicloFormativo();
+        $ciclo_formativo->nombre = $request->nombre;
+        $ciclo_formativo->codigo = $request->codigo;
+        $ciclo_formativo->grado = $request->grado;
+        $ciclo_formativo->descripcion = $request->descripcion;
+        $ciclo_formativo->save();
+
+        return redirect()->action([CiclosFormativosController::class, 'getShow'], ['id' => $ciclo_formativo->id]);
+    }
+
+    public function putCreate($id, Request $request)
+    {
+        $ciclo_formativo = CicloFormativo::findOrFail($id);
+        $ciclo_formativo->nombre = $request->nombre;
+        $ciclo_formativo->codigo = $request->codigo;
+        $ciclo_formativo->grado = $request->grado;
+        $ciclo_formativo->descripcion = $request->descripcion;
+        $ciclo_formativo->save();
+
+        return redirect()->action([CiclosFormativosController::class, 'getShow'], ['id' => $ciclo_formativo->id]);
+    }
 }
