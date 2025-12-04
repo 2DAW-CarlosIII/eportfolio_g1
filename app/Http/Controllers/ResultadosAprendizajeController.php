@@ -41,7 +41,7 @@ class ResultadosAprendizajeController extends Controller
         $resultado_aprendizaje->orden = $request->orden;
         $resultado_aprendizaje->save();
 
-        return redirect()->action([ResultadosAprendizajeController::class, 'getIndex']);
+        return redirect()->action([ResultadosAprendizajeController::class, 'getShow'], ['id' => $resultado_aprendizaje->id]);
     }
 
     public function putCreate(Request $request)
@@ -53,7 +53,7 @@ class ResultadosAprendizajeController extends Controller
         $resultado_aprendizaje->orden = $request->orden;
         $resultado_aprendizaje->save();
 
-        return redirect()->action([ResultadosAprendizajeController::class, 'getIndex']);
+        return redirect()->action([ResultadosAprendizajeController::class, 'getShow'], ['id' => $resultado_aprendizaje->id]);
     }
 
 
