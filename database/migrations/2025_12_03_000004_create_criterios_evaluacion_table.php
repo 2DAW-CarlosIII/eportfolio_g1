@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('criterios_evaluacion', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('resultado_aprendizaje_id');
+            $table->unsignedBigInteger('resultado_aprendizaje_id')->nullable();
             $table->string("codigo", 50);
             $table->string("descripcion");
             $table->float("peso_porcentaje")->min(0)->max(100);

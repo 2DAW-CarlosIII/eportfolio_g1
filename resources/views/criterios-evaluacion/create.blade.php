@@ -16,7 +16,7 @@
                 <div class="card-body" style="padding:30px">
 
 
-                    <form action="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'store']) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'postCreate']) }}" method="POST">
 
                         @csrf
 
@@ -28,6 +28,21 @@
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
 	                        <input type="text" name="codigo" id="codigo" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripcion</label>
+	                        <input type="text" name="descripcion" id="descripcion" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="peso_porcentaje">Peso porcentaje</label>
+	                        <input type="number" name="peso_porcentaje" id="peso_porcentaje" class="form-control" max="100" min="0">
+                        </div>
+
+                         <div class="form-group">
+                            <label for="orden">Orden</label>
+	                        <input type="number" name="orden" id="orden" class="form-control" min="0">
                         </div>
 
                         <div class="form-group text-center">
