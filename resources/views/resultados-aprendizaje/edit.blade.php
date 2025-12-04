@@ -14,19 +14,30 @@
                 </div>
                 <div class="card-body" style="padding:30px">
 
-                    <form action="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'update'],['id' => $id]) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'putCreate'],['id' => $id]) }}" method="POST">
 
                         @csrf
                         @method('PUT')
 
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <input type="text" name="descripcion" id="descripcion" class="form-control" value="{{$resultado_aprendizaje->descripcion}}">
-                        </div>
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" value="{{$resultado_aprendizaje->codigo}}" class="form-control">
+	                        <input type="text" name="codigo" id="codigo" value="{{$resultado_aprendizaje->codigo}}" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" name="descripcion" id="descripcion" class="form-control" value="{{$resultado_aprendizaje->descripcion}}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="codigo">Porcentaje</label>
+	                        <input type="number" name="porcentaje" id="porcentaje" min="0" max="100" step="0.01" value="{{$resultado_aprendizaje->peso_porcentaje}}" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="codigo">Orden</label>
+	                        <input type="number" name="orden" id="orden" min="1" value="{{$resultado_aprendizaje->orden}}" class="form-control" required>
                         </div>
 
                         <div class="form-group text-center">
