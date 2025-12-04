@@ -30,6 +30,11 @@
 	                        <input type="text" name="codigo" id="codigo" class="form-control" required>
                         </div>
 
+                        <div class="form-group">
+                            <label for="descripcion">Descripcion</label>
+                            <input type="text" name="descripcion" id="descripcion" class="form-control">
+                        </div>
+
                         <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" style="padding:8px 100px;margin-top:25px;">
                             Añadir Familia Profesional
