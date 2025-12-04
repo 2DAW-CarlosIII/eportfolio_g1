@@ -16,26 +16,30 @@
                 <div class="card-body" style="padding:30px">
 
 
-                    <form action="{{ action([App\Http\Controllers\CiclosFormativosController::class, 'store']) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\CiclosFormativosController::class, 'postCreate']) }}" method="POST">
 
                         @csrf
 
                         <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <input type="text" name="nombre" id="nombre" class="form-control" required maxlength="255">
                         </div>
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" class="form-control">
+	                        <input type="text" name="codigo" id="codigo" class="form-control" required maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="grado">Grado</label>
-                            <select name="grado" id="grado" class="form-control">
+                            <select name="grado" id="grado" class="form-control" required>
                                 @foreach ($grados as $grado)
                                     <option value="{{ $grado }}">{{ $grado }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea name="descripcion" id="descripcion" class="form-control" rows="3"></textarea>
                         </div>
 
                         <div class="form-group text-center">

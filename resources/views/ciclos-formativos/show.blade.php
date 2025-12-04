@@ -15,7 +15,8 @@
             <header style="max-width: 100vh;">
                 <h3>{{ $ciclo_formativo->nombre }}</h3>
                 <h4>Codigo: {{$ciclo_formativo->codigo}}</h4>
-                <p>Grado: {{$ciclo_formativo->grado}}</p>
+                <h5>Grado: {{$ciclo_formativo->grado}}</h5>
+                <p>Descripción: {{$ciclo_formativo->descripcion}}</p>
             </header>
             <footer>
                 <p></p>
