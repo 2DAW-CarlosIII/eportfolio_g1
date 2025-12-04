@@ -32,5 +32,29 @@ class ResultadosAprendizajeController extends Controller
             ->with('id', $id);
     }
 
-    
+    public function postCreate(Request $request)
+    {
+        $resultado_aprendizaje = new ResultadoAprendizaje();
+        $resultado_aprendizaje->codigo = $request->codigo;
+        $resultado_aprendizaje->descripcion = $request->descripcion;
+        $resultado_aprendizaje->peso_porcentaje = $request->porcentaje;
+        $resultado_aprendizaje->orden = $request->orden;
+        $resultado_aprendizaje->save();
+
+        return redirect()->action([ResultadosAprendizajeController::class, 'getIndex']);
+    }
+
+    public function putCreate(Request $request)
+    {
+        $resultado_aprendizaje = ResultadoAprendizaje::findOrFail($request->id);
+        $resultado_aprendizaje->codigo = $request->codigo;
+        $resultado_aprendizaje->descripcion = $request->descripcion;
+        $resultado_aprendizaje->peso_porcentaje = $request->porcentaje;
+        $resultado_aprendizaje->orden = $request->orden;
+        $resultado_aprendizaje->save();
+
+        return redirect()->action([ResultadosAprendizajeController::class, 'getIndex']);
+    }
+
+
 }

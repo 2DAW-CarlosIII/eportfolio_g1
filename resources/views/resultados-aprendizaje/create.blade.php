@@ -16,18 +16,28 @@
                 <div class="card-body" style="padding:30px">
 
 
-                    <form action="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'store']) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'postCreate']) }}" method="POST">
 
                         @csrf
 
                         <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
+                            <label for="codigo">Codigo</label>
+	                        <input type="text" name="codigo" id="codigo" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" class="form-control">
+                        <label for="nombre">Descripcion</label>
+                        <input type="text" name="descripcion" id="descripcion" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                        <label for="nombre">Porcentaje</label>
+                        <input type="number" name="porcentaje" id="porcentaje" min="0" max="100" step="0.01" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                        <label for="nombre">Orden</label>
+                        <input type="number" name="orden" id="orden" min="1" class="form-control">
                         </div>
 
                         <div class="form-group text-center">
