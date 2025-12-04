@@ -16,12 +16,12 @@
                 <h4>Descripción: {{$criterio_evaluacion->descripcion}}</h4>
                 <h4>Fecha de creación: {{ $criterio_evaluacion->created_at }}</h4>
                 <h4>Fecha de actualización: {{ $criterio_evaluacion->updated_at }}</h4>
-                <h5>Porcentaje: {{ $criterio_evaluacion->peso_porcentaje }}</h5>
+                <h5>Porcentaje: {{ $criterio_evaluacion->peso_porcentaje }} %</h5>
 
             </header>
             <footer>
                 <p></p>
-                <ul class="actions">    
+                <ul class="actions">
                             <li><a href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getEdit'], $criterio_evaluacion->id) }}" class="button alt">Editar Criterio de Evaluación</a></li>
                             <li><a href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getIndex']) }}" class="button alt">Todas los Criterios de Evaluación</a></li>
                 </ul>
