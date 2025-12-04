@@ -7,10 +7,10 @@
 
 @section('content')
     <div class="row m-4">
-        <div class="col-sm-4">
+        <div class="col-12 col-sm-4">
             <a href="#" class="images featured"><img src="{{ asset('/images/logo.png') }}" alt="" style="width:15vh; height: 15vh;"/></a>
         </div>
-        <div class="col-sm-8">
+        <div class="col-12 col-sm-8">
 
             <header>
                 <h3>{{ $familia_profesional->nombre }}</h3>

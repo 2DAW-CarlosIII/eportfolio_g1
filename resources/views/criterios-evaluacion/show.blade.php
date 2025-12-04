@@ -7,10 +7,10 @@
 
 @section('content')
     <div class="row m-4">
-        <div class="col-sm-4">
+        <div class="col-12 col-sm-4">
             <a href="#" class="images featured"><img src="{{ asset('/images/logo.png') }}" alt="" style="width:15vh; height: 15vh;"/></a>
         </div>
-        <div class="col-sm-8">
+        <div class="col-12 col-sm-8">
             <header style="max-width: 100vh;">
                 <h2>Codigo: {{ $criterio_evaluacion->codigo }}</h2>
                 <h4>Descripción: {{$criterio_evaluacion->descripcion}}</h4>
