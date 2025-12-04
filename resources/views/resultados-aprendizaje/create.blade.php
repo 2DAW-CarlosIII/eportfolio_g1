@@ -22,22 +22,22 @@
 
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-	                        <input type="text" name="codigo" id="codigo" class="form-control">
+	                        <input type="text" name="codigo" id="codigo" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                         <label for="nombre">Descripcion</label>
-                        <input type="text" name="descripcion" id="descripcion" class="form-control">
+                        <input type="text" name="descripcion" id="descripcion" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                         <label for="nombre">Porcentaje</label>
-                        <input type="number" name="porcentaje" id="porcentaje" min="0" max="100" step="0.01" class="form-control">
+                        <input type="number" name="porcentaje" id="porcentaje" min="0" max="100" step="0.01" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                         <label for="nombre">Orden</label>
-                        <input type="number" name="orden" id="orden" min="1" class="form-control">
+                        <input type="number" name="orden" id="orden" min="1" class="form-control" required>
                         </div>
 
                         <div class="form-group text-center">
