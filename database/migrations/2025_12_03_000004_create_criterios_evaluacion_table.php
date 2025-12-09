@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->float("peso_porcentaje")->min(0)->max(100);
             $table->integer("orden")->min(0);
             $table->timestamps();
+            $table->foreign("resultado_aprendizaje_id")->references("id")->on("resultados_aprendizaje");
         });
     }
 
