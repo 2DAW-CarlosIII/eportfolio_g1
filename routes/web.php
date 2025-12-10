@@ -33,15 +33,18 @@ Route::middleware('auth')->group(function () {
 Route::prefix('familias-profesionales')->group(function () {
     Route::get('/', [FamiliasProfesionalesController::class, 'getIndex']);
 
-    Route::get('create', [FamiliasProfesionalesController::class, 'getCreate']);
-
     Route::get('/show/{id}', [FamiliasProfesionalesController::class, 'getShow']) -> where('id', '[0-9]+');
 
-    Route::get('/edit/{id}', [FamiliasProfesionalesController::class, 'getEdit']) -> where('id', '[0-9]+');
+    Route::group(['middleware' => 'auth'], function () {
+        
+        Route::get('create', [FamiliasProfesionalesController::class, 'getCreate']);
 
-    Route::post('postCreate', [FamiliasProfesionalesController::class, 'postCreate']);
+        Route::get('/edit/{id}', [FamiliasProfesionalesController::class, 'getEdit']) -> where('id', '[0-9]+');
 
-    Route::put('putCreate/{id}', [FamiliasProfesionalesController::class, 'putCreate'])-> where('id', '[0-9]+');
+        Route::post('postCreate', [FamiliasProfesionalesController::class, 'postCreate']);
+
+        Route::put('putCreate/{id}', [FamiliasProfesionalesController::class, 'putCreate'])-> where('id', '[0-9]+');
+    });
 
 
 });
@@ -50,48 +53,54 @@ Route::prefix('familias-profesionales')->group(function () {
 Route::prefix('ciclos-formativos')->group(function(){
     Route::get('/', [CiclosFormativosController::class, 'getIndex']);
 
-    Route::get('create', [CiclosFormativosController::class, 'getCreate']);
-
     Route::get('/show/{id}', [CiclosFormativosController::class, 'getShow']) -> where('id', '[0-9]+');
 
-    Route::get('/edit/{id}', [CiclosFormativosController::class, 'getEdit']) -> where('id', '[0-9]+');
+    Route::group(['middleware' => 'auth'], function () {
 
-    Route::post('postCreate', [CiclosFormativosController::class, 'postCreate']);
+        Route::get('create', [CiclosFormativosController::class, 'getCreate']);
 
-    Route::put('putCreate/{id}', [CiclosFormativosController::class, 'putCreate'])-> where('id', '[0-9]+');
+        Route::get('/edit/{id}', [CiclosFormativosController::class, 'getEdit']) -> where('id', '[0-9]+');
+
+        Route::post('postCreate', [CiclosFormativosController::class, 'postCreate']);
+
+        Route::put('putCreate/{id}', [CiclosFormativosController::class, 'putCreate'])-> where('id', '[0-9]+');
+    });
 });
 
 Route::prefix('criterios-evaluacion')->group(function () {
-    Route::get('/', [CriteriosEvaluacionController::class, 'getIndex']);
 
-    Route::get('create', [CriteriosEvaluacionController::class, 'getCreate']);
+    Route::get('/', [CriteriosEvaluacionController::class, 'getIndex']);
 
     Route::get('/show/{id}', [CriteriosEvaluacionController::class, 'getShow']) -> where('id', '[0-9]+');
 
-    Route::get('/edit/{id}', [CriteriosEvaluacionController::class, 'getEdit']) -> where('id', '[0-9]+');
+    Route::group(['middleware' => 'auth'], function () {
 
-    Route::post('postCreate', [CriteriosEvaluacionController::class, 'postCreate']);
+        Route::get('create', [CriteriosEvaluacionController::class, 'getCreate']);
 
-    Route::put('putCreate/{id}', [CriteriosEvaluacionController::class, 'putCreate'])-> where('id', '[0-9]+');
+        Route::get('/edit/{id}', [CriteriosEvaluacionController::class, 'getEdit']) -> where('id', '[0-9]+');
 
+        Route::post('postCreate', [CriteriosEvaluacionController::class, 'postCreate']);
 
+        Route::put('putCreate/{id}', [CriteriosEvaluacionController::class, 'putCreate'])-> where('id', '[0-9]+');
+    });
 });
 
 
 Route::prefix('resultados-aprendizaje')->group(function () {
     Route::get('/', [ResultadosAprendizajeController::class, 'getIndex']);
 
-    Route::get('create', [ResultadosAprendizajeController::class, 'getCreate']);
-
     Route::get('/show/{id}', [ResultadosAprendizajeController::class, 'getShow']) -> where('id', '[0-9]+');
 
-    Route::get('/edit/{id}', [ResultadosAprendizajeController::class, 'getEdit']) -> where('id', '[0-9]+');
+    Route::group(['middleware' => 'auth'], function () {
 
-    Route::post('postCreate', [ResultadosAprendizajeController::class, 'postCreate']);
+        Route::get('create', [ResultadosAprendizajeController::class, 'getCreate']);
 
-    Route::put('putCreate/{id}', [ResultadosAprendizajeController::class, 'putCreate'])-> where('id', '[0-9]+');
+        Route::get('/edit/{id}', [ResultadosAprendizajeController::class, 'getEdit']) -> where('id', '[0-9]+');
 
+        Route::post('postCreate', [ResultadosAprendizajeController::class, 'postCreate']);
 
+        Route::put('putCreate/{id}', [ResultadosAprendizajeController::class, 'putCreate'])-> where('id', '[0-9]+');
+    });
 });
 
 require __DIR__.'/auth.php';
