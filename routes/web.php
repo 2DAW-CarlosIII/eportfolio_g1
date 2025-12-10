@@ -5,20 +5,28 @@ use App\Http\Controllers\CriteriosEvaluacionController;
 use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FamiliasProfesionalesController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'getHome']);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+//Route::get('/', [HomeController::class, 'getHome']);
 Route::get('/criterios', [HomeController::class, 'getCriteriosEvaluacion']);
 Route::get('/resultados', [HomeController::class, 'getResultadosAprendizaje']);
 Route::get('/ciclos', [HomeController::class, 'getCiclosFormativos']);
 
-// ----------------------------------------
-Route::get('login', function () {
-    return view('auth.login');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('logout', function () {
-    return "Logout usuario";
-});
+
 
 
 // ----------------------------------------
@@ -86,11 +94,4 @@ Route::prefix('resultados-aprendizaje')->group(function () {
 
 });
 
-
-
-// ----------------------------------------
-Route::get('perfil/{id?}', function ($id = null) {
-    if ($id === null)
-        return 'Visualizar el usuario propio';
-    return 'Visualizar el usuario de ' . $id;
-}) -> where('id', '[0-9]+');
+require __DIR__.'/auth.php';
