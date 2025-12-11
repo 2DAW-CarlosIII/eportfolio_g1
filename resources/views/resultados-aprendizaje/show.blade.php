@@ -23,7 +23,9 @@
             <footer>
                 <p></p>
                 <ul class="actions">    
+                    @auth
                             <li><a href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getEdit'], $resultado_aprendizaje->id) }}" class="button alt">Editar Resultado de Aprendizaje</a></li>
+                    @endauth
                             <li><a href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getIndex']) }}" class="button alt">Todas los Resultados de Aprendizaje</a></li>
                 </ul>
             </footer>
