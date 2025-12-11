@@ -8,11 +8,11 @@ use App\Http\Controllers\FamiliasProfesionalesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-//Route::get('/', [HomeController::class, 'getHome']);
+Route::get('/', [HomeController::class, 'getHome'])->name('home');
 Route::get('/criterios', [HomeController::class, 'getCriteriosEvaluacion']);
 Route::get('/resultados', [HomeController::class, 'getResultadosAprendizaje']);
 Route::get('/ciclos', [HomeController::class, 'getCiclosFormativos']);

@@ -20,8 +20,10 @@
             <footer>
                 <p></p>
                 <ul class="actions">
-                            <li><a href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getEdit'], $familia_profesional->id) }}" class="button alt">Editar Familia Profesional</a></li>
-                            <li><a href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getIndex']) }}" class="button alt">Todas los Familias Profesionales</a></li>
+                    @auth
+                        <li><a href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getEdit'], $familia_profesional->id) }}" class="button alt">Editar Familia Profesional</a></li>
+                    @endauth
+                    <li><a href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getIndex']) }}" class="button alt">Todas los Familias Profesionales</a></li>
                 </ul>
             </footer>
 
