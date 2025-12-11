@@ -36,6 +36,25 @@
 										<li><a href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getCreate']) }}">Create</a></li>
 									</ul>
 								</li>
+								@if (Route::has('login'))
+								@auth
+								<li>
+									<a href="{{ url('/dashboard') }}">Dashboard</a>
+								</li>
+								<li>
+                        			@include('escapeVelocity.partials.dropdown-user')
+                    			</li>
+								@else
+								<li>
+									<a href="{{ route('login') }}">Login</a>
+								</li>
+								@if (Route::has('register'))
+								<li>
+									<a href="{{ route('register') }}">Register</a>
+								</li>
+								@endif
+								@endauth
+								@endif
 							</ul>
 						</nav>
 
