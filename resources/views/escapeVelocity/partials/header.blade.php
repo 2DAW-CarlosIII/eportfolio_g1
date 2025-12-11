@@ -15,9 +15,11 @@
 					<li><a
 							href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getIndex']) }}">Listado</a>
 					</li>
+					@auth
 					<li><a
 							href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getCreate']) }}">Create</a>
 					</li>
+					@endauth
 				</ul>
 			</li>
 			<li>
@@ -26,9 +28,11 @@
 					<li><a
 							href="{{ action([App\Http\Controllers\CiclosFormativosController::class, 'getIndex']) }}">Listado</a>
 					</li>
+					@auth
 					<li><a
 							href="{{ action([App\Http\Controllers\CiclosFormativosController::class, 'getCreate']) }}">Create</a>
 					</li>
+					@endauth
 				</ul>
 			</li>
 			<li>
@@ -37,9 +41,11 @@
 					<li><a
 							href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getIndex']) }}">Listado</a>
 					</li>
+					@auth
 					<li><a
 							href="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'getCreate']) }}">Create</a>
 					</li>
+					@endauth
 				</ul>
 			</li>
 			<li>
@@ -48,9 +54,11 @@
 					<li><a
 							href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getIndex']) }}">Listado</a>
 					</li>
+					@auth
 					<li><a
 							href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getCreate']) }}">Create</a>
 					</li>
+					@endauth
 				</ul>
 			</li>
 
