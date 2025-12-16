@@ -17,7 +17,7 @@
                 <div class="card-body" style="padding:30px">
 
 
-                    <form action="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'postCreate']) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'store']) }}" method="POST">
 
                         @csrf
 

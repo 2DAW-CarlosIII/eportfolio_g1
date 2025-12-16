@@ -32,7 +32,7 @@ class ResultadosAprendizajeController extends Controller
             ->with('id', $id);
     }
 
-    public function postCreate(Request $request)
+    public function store(Request $request)
     {
         $resultado_aprendizaje = new ResultadoAprendizaje();
         $resultado_aprendizaje->codigo = $request->codigo;
@@ -44,7 +44,7 @@ class ResultadosAprendizajeController extends Controller
         return redirect()->action([ResultadosAprendizajeController::class, 'getShow'], ['id' => $resultado_aprendizaje->id]);
     }
 
-    public function putCreate(Request $request)
+    public function update(Request $request)
     {
         $resultado_aprendizaje = ResultadoAprendizaje::findOrFail($request->id);
         $resultado_aprendizaje->codigo = $request->codigo;
