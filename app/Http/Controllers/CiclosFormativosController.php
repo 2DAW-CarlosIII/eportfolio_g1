@@ -34,7 +34,7 @@ class CiclosFormativosController extends Controller
             ->with('grados', CicloFormativo::GRADOS);
     }
 
-    public function postCreate(Request $request)
+    public function store(Request $request)
     {
         $ciclo_formativo = new CicloFormativo();
         $ciclo_formativo->nombre = $request->nombre;
@@ -46,7 +46,7 @@ class CiclosFormativosController extends Controller
         return redirect()->action([CiclosFormativosController::class, 'getShow'], ['id' => $ciclo_formativo->id]);
     }
 
-    public function putCreate($id, Request $request)
+    public function update($id, Request $request)
     {
         $ciclo_formativo = CicloFormativo::findOrFail($id);
         $ciclo_formativo->nombre = $request->nombre;

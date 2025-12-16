@@ -32,7 +32,7 @@ class CriteriosEvaluacionController extends Controller
             ->with('id', $id);
     }
 
-    public function postCreate(Request $request)
+    public function store(Request $request)
     {
         $criterio_evaluacion = new CriterioEvaluacion();
         $criterio_evaluacion->codigo = $request->input('codigo');
@@ -46,7 +46,7 @@ class CriteriosEvaluacionController extends Controller
         return redirect()->action([CriteriosEvaluacionController::class, 'getShow'],['id' => $criterio_evaluacion->id]);
     }
 
-    public function putCreate(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $criterio_evaluacion = CriterioEvaluacion::findOrFail($id);
         $criterio_evaluacion->codigo = $request->input('codigo');

@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body" style="padding:30px">
 
-                    <form action="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'putCreate'],['id' => $id]) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\ResultadosAprendizajeController::class, 'update'],['id' => $id]) }}" method="POST">
 
                         @csrf
                         @method('PUT')
