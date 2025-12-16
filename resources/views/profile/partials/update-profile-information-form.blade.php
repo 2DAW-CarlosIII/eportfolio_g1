@@ -12,10 +12,24 @@
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
+    @if ($user->imagen)
+    <div>
+        <x-input-label for="imagen" :value="__('Avatar de Usuario')" />
+        <img src="{{ Storage::url($user->imagen) }}" alt="Avatar de Usuario" class="w-20 h-20 rounded-full">
+    </div>
+    @endif
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <!-- Avatar de Usuario -->
+        <div>
+            <x-input-label for="imagen" :value="__('Avatar de Usuario(opcional)')" />
+            <x-text-input id="imagen" class="block mt-1 w-full" type="file" name="imagen" :value="old('imagen')"
+                autofocus autocomplete="imagen" />
+            <x-input-error :messages="$errors->get('imagen')" class="mt-2" /><br>
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
