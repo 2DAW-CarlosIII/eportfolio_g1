@@ -15,9 +15,9 @@ class EvidenciasTableSeeder extends Seeder
     {
         DB::table('evidencias')->truncate();
         $evidencias = array(
-            array('url' => 'https://eportfolio.test', 'descripcion' => 'Evidencia 1', 'estado_validacion' => 'pendiente'),
-            array('url' => 'https://eportfolio.test', 'descripcion' => 'Evidencia 2', 'estado_validacion' => 'validada'),
-            array('url' => 'https://eportfolio.test', 'descripcion' => 'Evidencia 3', 'estado_validacion' => 'rechazada'),
+            array('url' => 'TEST.pdf', 'descripcion' => 'Evidencia 1', 'estado_validacion' => 'pendiente'),
+            array('url' => 'TEST.pdf', 'descripcion' => 'Evidencia 2', 'estado_validacion' => 'validada'),
+            array('url' => 'TEST.pdf', 'descripcion' => 'Evidencia 3', 'estado_validacion' => 'rechazada'),
         );
         foreach ($evidencias as $evidencia) {
             DB::table('evidencias')->insert($evidencia);
