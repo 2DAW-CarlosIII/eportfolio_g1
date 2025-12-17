@@ -14,15 +14,10 @@
                 </div>
                 <div class="card-body" style="padding:30px">
 
-                    <form action="{{ action([App\Http\Controllers\EvidenciasController::class, 'update'],['id' => $evidencia->id]) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\EvidenciasController::class, 'update'],['id' => $evidencia->id]) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         @method('PUT')
-
-                        <div class="form-group">
-                            <label for="url">Url</label>
-	                        <input type="text" name="url" id="url" value="{{$evidencia->url}}" class="form-control" required>
-                        </div>
 
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
@@ -32,13 +27,17 @@
                         <div class="form-group">
                             <label for="estado_validacion">Estado de Validación</label>
                             <select name="estado_validacion" id="estado_validacion" class="form-control" required>
-                                <option value="pendiente" {{ $evidencia->estado_validacion == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
-                                <option value="validada" {{ $evidencia->estado_validacion == 'validada' ? 'selected' : '' }}>Validada</option>
-                                <option value="rechazada" {{ $evidencia->estado_validacion == 'rechazada' ? 'selected' : '' }}>Rechazada</option>
+                                @foreach ($estados_validacion as $estado)
+                                    <option value="{{ $estado }}" {{ $evidencia->estado_validacion == $estado ? 'selected' : '' }}>{{ $estado }}</option>
+                                @endforeach
                             </select>
                         </div>
 
-                        
+                        <div class="form-group">
+                            <label for="documento">Documento</label>
+                            <input type="file" class="form-control" id="documento" name="documento" placeholder="documento">
+                        </div> 
+                                               
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary" style="padding:8px 100px;margin-top:25px;">
                                 Modificar Evidencia

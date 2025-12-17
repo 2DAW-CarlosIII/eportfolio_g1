@@ -16,15 +16,10 @@
                 <div class="card-body" style="padding:30px">
 
 
-                    <form action="{{ action([App\Http\Controllers\EvidenciasController::class, 'store']) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\EvidenciasController::class, 'store']) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
 
-                        
-                        <div class="form-group">
-                            <label for="url">URL</label>
-	                        <input type="text" name="url" id="url" class="form-control" required>
-                        </div>
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <textarea name="descripcion" id="descripcion" class="form-control" rows="3"></textarea>
@@ -33,9 +28,9 @@
                         <div class="form-group">
                             <label for="estado_validacion">Estado de Validación</label>
                             <select name="estado_validacion" id="estado_validacion" class="form-control" required>
-                                <option value="pendiente">Pendiente</option>
-                                <option value="validada">Validada</option>
-                                <option value="rechazada">Rechazada</option>
+                                @foreach ($estados_validacion as $estado)
+                                    <option value="{{ $estado }}">{{ $estado }}</option>
+                                @endforeach
                             </select>
                         </div>
 

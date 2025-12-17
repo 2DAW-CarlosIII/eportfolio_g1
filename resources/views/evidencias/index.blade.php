@@ -14,7 +14,7 @@
                     <a href="#" class="images featured"><img src="{{ asset('/images/logo.png') }}" alt=""
                             style="width: 50%; height: 50%;" /></a>
                     <header>
-                        <h3>{{ $evidencia->url }}</h3>
+                        <h3>{{ $evidencia->descripcion }}</h3>
                     </header>
                     <p>Estado validación: {{ $evidencia->estado_validacion }}</p>
                     <footer>
