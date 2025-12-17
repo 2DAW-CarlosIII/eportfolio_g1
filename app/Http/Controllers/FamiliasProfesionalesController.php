@@ -48,6 +48,12 @@ class FamiliasProfesionalesController extends Controller
         $familia_profesional->nombre = $request->nombre;
         $familia_profesional->codigo = $request->codigo;
         $familia_profesional->descripcion = $request->descripcion;
+
+        if($request->hasFile('imagen')){
+            $path = $request->file('imagen')->store('imagenes', ['disk' => 'public']);
+            $familia_profesional->imagen = $path;
+        }
+
         $familia_profesional->save();
     
         return redirect()->action([FamiliasProfesionalesController::class, 'getShow'], ['id'=> $familia_profesional->id]);

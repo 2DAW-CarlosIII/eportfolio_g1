@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body" style="padding:30px">
 
-                    <form action="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'update'],$familia_profesional->id) }}" method="POST">
+                    <form action="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'update'],$familia_profesional->id) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         @method('PUT')
@@ -32,6 +32,11 @@
                         <div class="form-group">
                             <label for="descripcion">Descripcion</label>
                             <input type="text" name="descripcion" id="descripcion" value="{{$familia_profesional->descripcion}}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imagen">imagen</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen" placeholder="imagen">
                         </div>
 
                         <div class="form-group text-center">
