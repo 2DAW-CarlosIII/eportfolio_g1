@@ -8,4 +8,11 @@ class ResultadoAprendizaje extends Model
 {
     //
     protected $table = 'resultados_aprendizaje';
+    protected $fillable = [
+        'modulo_formativo_id',
+        'codigo',
+        'descripcion',
+        'peso_porcentaje',
+        'orden'
+    ];
 }
