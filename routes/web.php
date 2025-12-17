@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CiclosFormativosController;
 use App\Http\Controllers\CriteriosEvaluacionController;
+use App\Http\Controllers\EvidenciasController;
 use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FamiliasProfesionalesController;
@@ -31,7 +32,7 @@ Route::prefix('familias-profesionales')->group(function () {
 
     Route::get('/show/{id}', [FamiliasProfesionalesController::class, 'getShow']) -> where('id', '[0-9]+');
 
-   
+
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit/{id}', [FamiliasProfesionalesController::class, 'getEdit']) -> where('id', '[0-9]+');
         Route::post('store', [FamiliasProfesionalesController::class, 'store']);
@@ -80,6 +81,19 @@ Route::prefix('resultados-aprendizaje')->group(function () {
         Route::get('/edit/{id}', [ResultadosAprendizajeController::class, 'getEdit']) -> where('id', '[0-9]+');
         Route::post('store', [ResultadosAprendizajeController::class, 'store']);
         Route::put('update/{id}', [ResultadosAprendizajeController::class, 'update'])-> where('id', '[0-9]+');
+    });
+});
+
+Route::prefix('evidencias')->group(function () {
+    Route::get('/', [EvidenciasController::class, 'getIndex']);
+
+    Route::get('/show/{id}', [EvidenciasController::class, 'getShow']) -> where('id', '[0-9]+');
+
+    Route::group(['middleware' => 'auth'], function(){
+        Route::get('create', [EvidenciasController::class, 'getCreate']);
+        Route::get('/edit/{id}', [EvidenciasController::class, 'getEdit']) -> where('id', '[0-9]+');
+        Route::post('store', [EvidenciasController::class, 'store']);
+        Route::put('update/{id}', [EvidenciasController::class, 'update'])-> where('id', '[0-9]+');
     });
 });
 
