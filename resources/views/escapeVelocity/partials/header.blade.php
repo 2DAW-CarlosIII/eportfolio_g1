@@ -84,11 +84,16 @@
 			@endif
 			@auth
 				<li>
-					<a>{{ Auth::user()->name }}</a>
+					<a>{{ Auth::user()->name }}
+						@if (Auth::user()->imagen)
+							<img src="{{ Storage::url(Auth::user()->imagen) }}" alt="Avatar de Usuario" style="width: 30px; height: 20px;" class="w-20 h-20 rounded-full">
+							@endif
+					</a>
 					<ul>
 						<li>
 							<x-dropdown-link :href="route('profile.edit')">
 								{{ __('Profile') }}
+								
 							</x-dropdown-link>
 						</li>
 						<li>
