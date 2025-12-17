@@ -15,7 +15,7 @@
     @if ($user->imagen)
     <div>
         <x-input-label for="imagen" :value="__('Avatar de Usuario')" />
-        <img src="{{ Storage::url($user->imagen) }}" alt="Avatar de Usuario" class="w-20 h-20 rounded-full">
+        <img src="{{ Storage::url($user->imagen) }}" alt="Avatar de Usuario" class="w-20 h-20 rounded-full " >
     </div>
     @endif
 
@@ -23,14 +23,7 @@
         @csrf
         @method('patch')
 
-        <!-- Avatar de Usuario -->
-        <div>
-            <x-input-label for="imagen" :value="__('Avatar de Usuario(opcional)')" />
-            <x-text-input id="imagen" class="block mt-1 w-full" type="file" name="imagen" :value="old('imagen')"
-                autofocus autocomplete="imagen" />
-            <x-input-error :messages="$errors->get('imagen')" class="mt-2" /><br>
-        </div>
-
+        
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
@@ -71,6 +64,14 @@
                 </div>
             @endif
         </div>
+        <!-- Avatar de Usuario -->
+        <div>
+            <x-input-label for="imagen" :value="__('Avatar de Usuario(opcional)')" />
+            <x-text-input id="imagen" class="block mt-1 w-full" type="file" name="imagen" :value="old('imagen')"
+                autofocus autocomplete="imagen" />
+            <x-input-error :messages="$errors->get('imagen')" class="mt-2" /><br>
+        </div>
+
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

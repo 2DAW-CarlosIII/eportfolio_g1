@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('familias-profesionales')->group(function () {
-    Route::get('/', [FamiliasProfesionalesController::class, 'getIndex']);
+    Route::get('/', [FamiliasProfesionalesController::class, 'getIndex']) -> name('familias-profesionales.index');
 
 
     Route::get('/show/{id}', [FamiliasProfesionalesController::class, 'getShow']) -> where('id', '[0-9]+');
