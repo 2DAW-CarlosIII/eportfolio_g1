@@ -37,7 +37,10 @@ class EvidenciasController extends Controller
     public function store(Request $request)
     {
         $evidencia = new Evidencia();
-        $evidencia->url = $request->url;
+        if ($request->hasFile('documento')) {
+            $path = $request->file('documento')->store('documentos', ['disk' => 'public']);
+            $evidencia->url = $path;
+        }
         $evidencia->descripcion = $request->descripcion;
         $evidencia->estado_validacion = $request->estado_validacion;
         $evidencia->save();
@@ -48,7 +51,10 @@ class EvidenciasController extends Controller
     public function update($id, Request $request)
     {
         $evidencia = Evidencia::findOrFail($id);
-        $evidencia->url = $request->url;
+        if ($request->hasFile('documento')) {
+            $path = $request->file('documento')->store('documentos', ['disk' => 'public']);
+            $evidencia->url = $path;
+        }
         $evidencia->descripcion = $request->descripcion;
         $evidencia->estado_validacion = $request->estado_validacion;
         $evidencia->save();
