@@ -15,6 +15,9 @@ use Database\Seeders\UsersTableSeeder;
 use Database\Seeders\EvidenciasTableSeeder;
 use Database\Seeders\TareaTableSeeder;
 use Database\Seeders\EvaluacionesTableSeeder;
+use Database\Seeders\ModuloFormativoTableSeeder;
+use Database\Seeders\MatriculaTableSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -33,6 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call(EvidenciasTableSeeder::class);
         $this->call(TareaTableSeeder::class);
         $this->call(EvaluacionesTableSeeder::class);
+        $this->call(ModuloFormativoTableSeeder::class);
+        $this->call(MatriculaTableSeeder::class);
 
 
         Model::reguard();
