@@ -8,6 +8,7 @@ use App\Http\Resources\ComentarioResource;
 use App\Models\Asignacion;
 use App\Models\Comentario;
 use App\Models\Evidencia;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AsignacionController extends Controller
@@ -18,7 +19,7 @@ class AsignacionController extends Controller
     public function index(Request $request, Evidencia $evidencia)
     {
         $query = Asignacion::query();
-        if($query) {  
+        if($query) {
             $query->orWhere('nombre', 'like', '%' .$request->q . '%');
         }
        return AsignacionesResource::collection(
@@ -42,11 +43,13 @@ class AsignacionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Asignacion $asignacion, Evidencia $evidencia)
+    public function show(Asignacion $asignacion,User $user, Evidencia $evidencia)
     {
         $asignacion = Asignacion::where('evidencia_id', $evidencia->id)->find($asignacion->id);
         return new AsignacionesResource($asignacion);
     }
+
+
 
     /**
      * Update the specified resource in storage.
