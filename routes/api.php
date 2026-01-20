@@ -7,6 +7,8 @@ use Tqdev\PhpCrudApi\Api;
 use Tqdev\PhpCrudApi\Config\Config;
 use App\Http\Controllers\API\FamiliaProfesionalController;
 use App\Http\Controllers\API\CicloFormativoController;
+use App\Http\Controllers\API\ModuloFormativoController;
+use App\Http\Controllers\API\MatriculaController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -22,6 +24,17 @@ Route::prefix('v1')->group(function () {
             'familias-profesionales' => 'familiaProfesional',
             'ciclos-formativos' => 'cicloFormativo'
         ]);
+    Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)
+        ->parameters([
+            'ciclos-formativos' => 'cicloFormativo',
+            'modulos-formativos' => 'moduloFormativo'
+        ]);
+    Route::apiResource('modulos-formativos.matriculas', MatriculaController::class)
+        ->parameters([
+            'modulos-formativos' => 'moduloFormativo',
+            'matriculas' => 'matricula'
+        ]);
+
 });
 
 

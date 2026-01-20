@@ -14,6 +14,7 @@ class ModuloFormativoTableSeeder extends Seeder
      */
     public function run(): void
     {
+        ModuloFormativo::truncate();
         ModuloFormativo::factory()->count(80)->create([
             'nombre' => fake()->word(),
             'codigo' => fake()->word(),
@@ -21,7 +22,6 @@ class ModuloFormativoTableSeeder extends Seeder
             'curso_escolar' => fake()->word(),
             'centro' => fake()->word(),
             'descripcion' => fake()->text(),
-            'docente_id' => User::factory(),
         ]);
     }
 }

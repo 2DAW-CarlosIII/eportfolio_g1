@@ -17,8 +17,8 @@ class MatriculaFactory extends Factory
     public function definition(): array
     {
         return [
-            'estudiante_id' => User::factory(),
-            'modulo_formativo_id' => ModuloFormativo::factory(),
+            'estudiante_id' => random_int(1, 10),
+            'modulo_formativo_id' => random_int(1, 10),
         ];
     }
 }
