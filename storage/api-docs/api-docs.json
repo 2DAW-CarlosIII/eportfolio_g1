@@ -7592,8 +7592,8 @@
                         "description": "Estado activo",
                         "type": "boolean"
                     },
-                    "observaciones": {
-                        "description": "Observaciones",
+                    "enunciado": {
+                        "description": "Enunciado",
                         "type": "string"
                     }
                 },

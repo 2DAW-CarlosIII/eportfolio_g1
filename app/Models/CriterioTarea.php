@@ -9,6 +9,6 @@ class CriterioTarea extends Model
         protected $table = 'criterios_tareas';
         protected $fillable = [
                 'tarea_id',
-                'actividad_id'
+                'criterio_evaluacion_id'
         ];
 }

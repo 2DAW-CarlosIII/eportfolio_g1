@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,8 +12,11 @@ return new class extends Migration
     {
         Schema::dropIfExists('criterios_tareas');
         Schema::create('criterios_tareas', function (Blueprint $table) {
-            $table->id("tarea_id");
-            $table->id("actividad_id");
+            $table->unsignedBigInteger('criterio_evaluacion_id');
+            $table->unsignedBigInteger('tarea_id');
+            $table->foreign('criterio_evaluacion_id')->references('id')->on('criterios_evaluacion')->onDelete('cascade');
+            $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
