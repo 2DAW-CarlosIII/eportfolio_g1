@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\ResultadoAprendizajeController;
+use App\Http\Controllers\API\CriterioEvaluacionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Psr\Http\Message\ServerRequestInterface;
@@ -33,6 +35,17 @@ Route::prefix('v1')->group(function () {
         ->parameters([
             'modulos-formativos' => 'moduloFormativo',
             'matriculas' => 'matricula'
+        ]);
+    
+    Route::apiResource('modulos-formativos.resultados-aprendizaje', ResultadoAprendizajeController::class)
+        ->parameters([
+            'modulos-formativos' => 'moduloFormativo',
+            'resultados-aprendizaje' => 'resultadoAprendizaje'
+        ]);
+    Route::apiResource('resultados-aprendizaje.criterios-evaluacion', CriterioEvaluacionController::class)
+        ->parameters([
+            'resultados-aprendizaje' => 'resultadoAprendizaje',
+            'criterios-evaluacion' => 'criterioEvaluacion'
         ]);
 
 });
