@@ -48,7 +48,7 @@ class CicloFormativoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CicloFormativo $cicloFormativo)
+    public function update(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
         $cicloFormativoData = json_decode($request->getContent(), true);
         $cicloFormativo->update($cicloFormativoData);
@@ -59,7 +59,7 @@ class CicloFormativoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CicloFormativo $cicloFormativo)
+    public function destroy(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
         try {
             $cicloFormativo->delete();
