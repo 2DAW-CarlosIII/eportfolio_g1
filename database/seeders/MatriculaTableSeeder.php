@@ -14,10 +14,8 @@ class MatriculaTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Matricula::factory()->count(100)->create([
-            'estudiante_id' => User::factory(),
-            'modulo_formativo_id' => ModuloFormativo::factory(),
-        ]);
+        Matricula::truncate();
+        Matricula::factory()->count(100)->create();
     }
 }
 
