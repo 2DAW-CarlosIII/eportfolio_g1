@@ -82,6 +82,7 @@ Route::prefix('v1')->group(function () {
         ]);
     
     Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);
+    Route::get('resultados-aprendizaje/{resultadoAprendizaje}/tareas', [TareaController::class, 'indexResultadoTarea']);
 
 
 

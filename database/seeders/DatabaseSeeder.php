@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MatriculaTableSeeder::class);
         $this->call(ComentariosTableSeeder::class);
         $this->call(AsignacionesTableSeeder::class);
+        $this->call(CriterioTareasTableSeeder::class);
 
         Model::reguard();
 
