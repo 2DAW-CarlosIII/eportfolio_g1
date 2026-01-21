@@ -80,9 +80,22 @@ Route::prefix('v1')->group(function () {
             'evidencias' => 'evidencia',
             'comentarios' => 'comentario'
         ]);
-    
+
     Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);
+
     Route::get('resultados-aprendizaje/{resultadoAprendizaje}/tareas', [TareaController::class, 'indexResultadoTarea']);
+
+    Route::get('users/{id}/evidencias', [EvidenciaController::class, 'indexUserEvidencia']);
+
+    Route::post('matriculas', [MatriculaController::class, 'matriculasLote']);
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('modulos-impartidos', [ModuloFormativoController::class, 'modulosImpartidos']);
+    });
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('modulos-matriculados', [MatriculaController::class, 'modulosMatriculados']);
+    });
 
 
 

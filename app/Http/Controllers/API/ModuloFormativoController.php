@@ -26,6 +26,16 @@ class ModuloFormativoController extends Controller
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')->paginate($request->per_page)
         );
     }
+    public function modulosImpartidos(Request $request)
+    {
+        $user = $request->user();
+
+        $modulos = ModuloFormativo::where('docente_id', $user->id)
+            ->orderBy('nombre', 'asc')
+            ->get();
+
+        return ModuloFormativoResource::collection($modulos);
+    }
 
     /**
      * Store a newly created resource in storage.
