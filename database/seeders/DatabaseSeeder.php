@@ -17,7 +17,9 @@ use Database\Seeders\TareaTableSeeder;
 use Database\Seeders\EvaluacionesTableSeeder;
 use Database\Seeders\ModuloFormativoTableSeeder;
 use Database\Seeders\MatriculaTableSeeder;
-use Database\Seeders\CriterioTareasTableSeeder;
+use Database\Seeders\CriteriosTareasTableSeeder;
+use Database\Seeders\ComentariosTableSeeder;
+use Database\Seeders\AsignacionesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,6 +41,8 @@ class DatabaseSeeder extends Seeder
         $this->call(EvaluacionesTableSeeder::class);
         $this->call(ModuloFormativoTableSeeder::class);
         $this->call(MatriculaTableSeeder::class);
+        $this->call(ComentariosTableSeeder::class);
+        $this->call(AsignacionesTableSeeder::class);
         $this->call(CriterioTareasTableSeeder::class);
 
         Model::reguard();
