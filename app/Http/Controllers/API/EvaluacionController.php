@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CicloFormativo;
 use Illuminate\Http\Request;
 use App\Http\Resources\CicloFormativoResource;
-use App\Models\Evidencias;
+use App\Models\Evidencia;
 use App\Models\Evaluacion;
 use App\Http\Resources\EvaluacionResource;
 
@@ -15,11 +15,11 @@ class EvaluacionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Evidencias $evidencias)
+    public function index(Request $request, Evidencia $evidencia)
     {
-        $query = Evaluacion::where('evidencias_id', $evidencias->id);
+        $query = Evaluacion::where('evidencia_id', $evidencia->id);
         if ($query) {
-            $query->where('descripcion', 'like', '%' . $request->q . '%');
+            $query->where('estado', 'like', '%' . $request->q . '%');
         }
 
         return EvaluacionResource::collection(
@@ -43,14 +43,14 @@ class EvaluacionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Evidencias $evidencias, Evaluacion $evaluacion)
+    public function show(Evidencia $evidencia, Evaluacion $evaluacion)
     {
         return new EvaluacionResource($evaluacion);
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evidencias $evidencias, Evaluacion $evaluacion)
+    public function update(Request $request, Evidencia $evidencia, Evaluacion $evaluacion)
     {
         $evaluacionData = json_decode($request->getContent(), true);
         $evaluacion->update($evaluacionData);
@@ -61,7 +61,7 @@ class EvaluacionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evidencias $evidencias, Evaluacion $evaluacion)
+    public function destroy(Evidencia $evidencia, Evaluacion $evaluacion)
     {
         try {
             $evaluacion->delete();
