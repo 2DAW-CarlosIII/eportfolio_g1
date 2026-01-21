@@ -32,39 +32,39 @@ class CriterioEvaluacionController extends Controller
      */
         public function store(Request $request, ResultadoAprendizaje $resultadoAprendizaje)
     {
-        $evaluacionData = json_decode($request->getContent(), true);
+        $criterioEvaluacionData = json_decode($request->getContent(), true);
 
-        $evaluacion = CriterioEvaluacion::create($evaluacionData);
+        $criterioEvaluacion = CriterioEvaluacion::create($criterioEvaluacionData);
 
-        return new CriterioEvaluacionResource($evaluacion);
+        return new CriterioEvaluacionResource($criterioEvaluacion);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ResultadoAprendizaje $resultadoAprendizaje,CriterioEvaluacion $evaluacion)
+    public function show(ResultadoAprendizaje $resultadoAprendizaje,CriterioEvaluacion $criterioEvaluacion)
     {
-        return new CriterioEvaluacionResource($evaluacion);
+        return new CriterioEvaluacionResource($criterioEvaluacion);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $evaluacion)
+    public function update(Request $request, ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $criterioEvaluacion)
     {
-        $evaluacionData = json_decode($request->getContent(), true);
-        $evaluacion->update($evaluacionData);
+        $criterioEvaluacionData = json_decode($request->getContent(), true);
+        $criterioEvaluacion->update($criterioEvaluacionData);
 
-        return new CriterioEvaluacionResource($evaluacion);
+        return new CriterioEvaluacionResource($criterioEvaluacion);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $evaluacion)
+    public function destroy(ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $criterioEvaluacion)
     {
         try {
-            $evaluacion->delete();
+            $criterioEvaluacion->delete();
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json([

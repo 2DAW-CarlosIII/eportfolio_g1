@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ResultadoAprendizajeController;
 use App\Http\Controllers\API\CriterioEvaluacionController;
+use App\Http\Controllers\API\TareaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Psr\Http\Message\ServerRequestInterface;
@@ -11,6 +12,7 @@ use App\Http\Controllers\API\FamiliaProfesionalController;
 use App\Http\Controllers\API\CicloFormativoController;
 use App\Http\Controllers\API\ModuloFormativoController;
 use App\Http\Controllers\API\MatriculaController;
+use App\Http\Controllers\API\CriterioTareaController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -36,7 +38,7 @@ Route::prefix('v1')->group(function () {
             'modulos-formativos' => 'moduloFormativo',
             'matriculas' => 'matricula'
         ]);
-    
+
     Route::apiResource('modulos-formativos.resultados-aprendizaje', ResultadoAprendizajeController::class)
         ->parameters([
             'modulos-formativos' => 'moduloFormativo',
@@ -47,7 +49,18 @@ Route::prefix('v1')->group(function () {
             'resultados-aprendizaje' => 'resultadoAprendizaje',
             'criterios-evaluacion' => 'criterioEvaluacion'
         ]);
+    Route::apiResource('criterios-evaluacion.tareas', TareaController::class)
+        ->parameters([
+            'criterios-evaluacion' => 'criterioEvaluacion',
+            'tareas' => 'tarea'
+        ]);
+    Route::apiResource('tareas', TareaController::class)
+        ->parameters([
+            'tareas' => 'tarea',
+            
+        ]);
 
+    
 });
 
 
