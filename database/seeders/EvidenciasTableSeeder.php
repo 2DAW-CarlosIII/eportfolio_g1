@@ -14,14 +14,7 @@ class EvidenciasTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('evidencias')->truncate();
-        $evidencias = array(
-            array('url' => 'TEST.pdf', 'descripcion' => 'Evidencia 1', 'estado_validacion' => 'pendiente'),
-            array('url' => 'TEST.pdf', 'descripcion' => 'Evidencia 2', 'estado_validacion' => 'validada'),
-            array('url' => 'TEST.pdf', 'descripcion' => 'Evidencia 3', 'estado_validacion' => 'rechazada'),
-        );
-        foreach ($evidencias as $evidencia) {
-            DB::table('evidencias')->insert($evidencia);
-        }
+        Evidencia::factory()->count(20)->create();
         $this->command->info('¡Tabla evidencias inicializada con datos!');
     }
 }
