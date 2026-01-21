@@ -26,6 +26,15 @@ class EvidenciaController extends Controller
         );
 
     }
+    public function indexUserEvidencia(Request $request, $id) // $id
+    {
+        $query = Evidencia::where('estudiante_id', $id);
+        return EvidenciaResource::collection(
+            $query->where('estudiante_id', $id)
+                ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+                ->paginate($request->perPage)
+        );
+    }
 
     /**
      * Store a newly created resource in storage.

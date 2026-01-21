@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Matricula;
 use App\Http\Resources\MatriculaResource;
+use App\Http\Resources\ModuloFormativoResource;
 use App\Models\ModuloFormativo;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,20 @@ class MatriculaController extends Controller
                 ->paginate($request->per_page)
         );
     }
+    public function modulosMatriculados(Request $request)
+    {
+        $user = $request->user();
+
+        $idsModulos = Matricula::where('estudiante_id', $user->id)
+            ->get('modulo_formativo_id');
+
+        $query = ModuloFormativo::whereIn('id', $idsModulos);
+
+        $modulos = $query->orderBy($request->sort ?? 'nombre', $request->order ?? 'asc')
+            ->paginate($request->per_page ?? 15);
+
+        return ModuloFormativoResource::collection($modulos);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,6 +48,23 @@ class MatriculaController extends Controller
         $matricula = Matricula::create($matricula);
 
         return new MatriculaResource($matricula);
+    }
+
+    public function matriculasLote(Request $request)
+    {
+        $estudiantes = $request->input('estudiantes_id');
+        $modulos = $request->input('modulos_formativos_id');
+        $nuevasMatriculas = [];
+        foreach ($estudiantes as $estudianteId) {
+            foreach ($modulos as $moduloId) {
+                $nuevasMatriculas[] = Matricula::create([
+                    'estudiante_id' => $estudianteId,
+                    'modulo_formativo_id' => $moduloId,
+                ]);
+            }
+        }
+
+        return MatriculaResource::collection($nuevasMatriculas);
     }
 
     /**
