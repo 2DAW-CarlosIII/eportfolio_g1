@@ -12,6 +12,7 @@ use App\Http\Controllers\API\FamiliaProfesionalController;
 use App\Http\Controllers\API\CicloFormativoController;
 use App\Http\Controllers\API\ModuloFormativoController;
 use App\Http\Controllers\API\MatriculaController;
+use App\Http\Controllers\API\EvidenciaController;
 use App\Http\Controllers\API\CriterioTareaController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -57,11 +58,17 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('tareas', TareaController::class)
         ->parameters([
             'tareas' => 'tarea',
-            
+
         ]);
-    Route::get('resultados-aprendizaje/{resultadoAprendizaje}/tareas', [TareaController::class, 'indexResultadoTarea']);
-    
-    
+
+    Route::apiResource('tareas.evidencias', EvidenciaController::class)
+        ->parameters([
+            'tareas' => 'tarea',
+            'evidencias' => 'evidencia'
+        ]);
+
+
+
 });
 
 
