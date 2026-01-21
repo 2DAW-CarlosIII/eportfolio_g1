@@ -13,22 +13,24 @@ class ComentariosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Evidencia $evidencia, Comentario $comentario)
+    public function index(Request $request, Evidencia $evidencia)
     {
-        $query = Comentario::query();
-        if($query) {  
-            $query->orWhere('nombre', 'like', '%' .$request->q . '%');
+        $query = Comentario::where('evidencia_id', $evidencia->id);
+        if ($query) {
+            $query->orWhere('contenido', 'like', '%' . $request->q . '%');
         }
-       return ComentarioResource::collection(
+        return ComentarioResource::collection(
             $query->where('evidencia_id', $evidencia->id)
-            ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage));
+                ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+                ->paginate($request->perPage)
+        );
     }
 
+    
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Evidencia $evidencia , Comentario $comentario) 
+    public function store(Request $request, Evidencia $evidencia, Comentario $comentario)
     {
         $comentarioData = json_decode($request->getContent(), true);
 
@@ -40,9 +42,9 @@ class ComentariosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Evidencia $evidencia,Comentario $comentario)
+    public function show(Evidencia $evidencia, Comentario $comentario)
     {
-        
+
         return new ComentarioResource($comentario);
     }
 
@@ -51,7 +53,7 @@ class ComentariosController extends Controller
      */
     public function update(Request $request, Evidencia $evidencia, Comentario $comentario)
     {
-        $comentarioData = json_decode($request->getContent(), true)->where('evidencia_id', $evidencia->id);
+        $comentarioData = json_decode($request->getContent(), true);
 
         $comentario->update($comentarioData);
 
@@ -61,7 +63,7 @@ class ComentariosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evidencia $evidencia,Comentario $comentario)
+    public function destroy(Evidencia $evidencia, Comentario $comentario)
     {
         try {
             $comentario->delete();

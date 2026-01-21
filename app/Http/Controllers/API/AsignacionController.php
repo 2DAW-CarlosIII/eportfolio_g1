@@ -16,14 +16,23 @@ class AsignacionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Evidencia $evidencia, Asignacion $asignacion)
+    public function index(Request $request, Evidencia $evidencia)
     {
-        $query = Asignacion::query();
+        $query = Asignacion::where('evidencia_id', $evidencia->id);
         if($query) {
-            $query->orWhere('nombre', 'like', '%' .$request->q . '%');
+            $query->orWhere('revisor_id', 'like', '%' .$request->q . '%');
         }
        return AsignacionesResource::collection(
-            $query
+            $query->where('evidencia_id', $evidencia->id)
+            ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+            ->paginate($request->perPage));
+    }
+
+    public function indexUserAsignacion(Request $request, $id) // $id
+    {
+        $query = Asignacion::where('asignado_por_id', $id);
+       return AsignacionesResource::collection(
+            $query->where('asignado_por_id', $id)
             ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
             ->paginate($request->perPage));
     }
@@ -56,7 +65,7 @@ class AsignacionController extends Controller
      */
     public function update(Request $request,Evidencia $evidencia, Asignacion $asignacion)
     {
-        $asignacionData = json_decode($request->getContent(), true)->where('evidencia_id', $evidencia->id);
+        $asignacionData = json_decode($request->getContent(), true);
 
         $asignacion->update($asignacionData);
 

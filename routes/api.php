@@ -14,6 +14,8 @@ use App\Http\Controllers\API\ModuloFormativoController;
 use App\Http\Controllers\API\MatriculaController;
 use App\Http\Controllers\API\EvidenciaController;
 use App\Http\Controllers\API\CriterioTareaController;
+use App\Http\Controllers\API\AsignacionController;
+use App\Http\Controllers\API\ComentariosController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -66,6 +68,20 @@ Route::prefix('v1')->group(function () {
             'tareas' => 'tarea',
             'evidencias' => 'evidencia'
         ]);
+
+    Route::apiResource('evidencias.asignaciones-revision', AsignacionController::class)
+        ->parameters([
+            'evidencias' => 'evidencia',
+            'asignaciones-revision' => 'asignacion'
+        ]);
+
+    Route::apiResource('evidencias.comentarios', ComentariosController::class)
+        ->parameters([
+            'evidencias' => 'evidencia',
+            'comentarios' => 'comentario'
+        ]);
+    
+    Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);
 
 
 
