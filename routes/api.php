@@ -59,7 +59,8 @@ Route::prefix('v1')->group(function () {
             'tareas' => 'tarea',
             
         ]);
-
+    Route::get('resultados-aprendizaje/{resultadoAprendizaje}/tareas', [TareaController::class, 'indexResultadoTarea']);
+    
     
 });
 
