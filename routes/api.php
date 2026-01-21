@@ -67,6 +67,8 @@ Route::prefix('v1')->group(function () {
             'evidencias' => 'evidencia'
         ]);
 
+    Route::get('resultados-aprendizaje/{resultadoAprendizaje}/tareas', [TareaController::class, 'indexResultadoTarea']);
+
 
 
 });
