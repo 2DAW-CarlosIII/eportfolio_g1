@@ -10,6 +10,7 @@ use App\Models\Tarea;
 use App\Models\ResultadoAprendizaje;
 use Illuminate\Http\Request;
 
+
 class TareaController extends Controller
 {
     /**
@@ -20,6 +21,24 @@ class TareaController extends Controller
         $criterioTarea = CriterioTarea::query()->where('criterio_evaluacion_id', $criterioEvaluacion->id)->first();
         $query = Tarea::query();
         $query->where('criterio_evaluacion_id', $criterioTarea->criterio_evaluacion_id);
+        if ($query) {
+            $query->where('enunciado', 'like', '%' . $request->q . '%');
+        }
+
+        return TareaResource::collection(
+            $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
+            ->paginate($request->per_page)
+        );
+
+    }
+
+    public function indexResultadoTarea(Request $request, $id)
+    {
+
+        $criterioEvaluacion = CriterioEvaluacion::query()->where('resultado_aprendizaje_id', $id)->first();
+        $query = Tarea::query();
+        $criterioTarea = CriterioTarea::query()->where('criterio_evaluacion_id', $criterioEvaluacion->id)->first();
+        $query->where('id', $criterioTarea->tarea_id);
         if ($query) {
             $query->where('enunciado', 'like', '%' . $request->q . '%');
         }
