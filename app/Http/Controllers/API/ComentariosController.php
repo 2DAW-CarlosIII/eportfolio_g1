@@ -13,7 +13,7 @@ class ComentariosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Evidencia $evidencia)
+    public function index(Request $request, Evidencia $evidencia, Comentario $comentario)
     {
         $query = Comentario::query();
         if($query) {  
@@ -28,11 +28,11 @@ class ComentariosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Evidencia $evidencia)
+    public function store(Request $request, Evidencia $evidencia , Comentario $comentario) 
     {
-        $comentario = json_decode($request->getContent(), true);
-        $comentario['evidencia_id'] = $evidencia->id;
-        $comentario = Comentario::create($comentario);
+        $comentarioData = json_decode($request->getContent(), true);
+
+        $comentario = Comentario::create($comentarioData);
 
         return new ComentarioResource($comentario);
     }
@@ -40,16 +40,16 @@ class ComentariosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Comentario $comentario,Evidencia $evidencia)
+    public function show(Evidencia $evidencia,Comentario $comentario)
     {
-        $comentario = Comentario::where('evidencia_id', $evidencia->id)->find($comentario->id);
+        
         return new ComentarioResource($comentario);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comentario $comentario, Evidencia $evidencia)
+    public function update(Request $request, Evidencia $evidencia, Comentario $comentario)
     {
         $comentarioData = json_decode($request->getContent(), true)->where('evidencia_id', $evidencia->id);
 
@@ -61,10 +61,10 @@ class ComentariosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comentario $comentario,Evidencia $evidencia)
+    public function destroy(Evidencia $evidencia,Comentario $comentario)
     {
         try {
-            $comentario->where('evidencia_id', $evidencia->id)->delete();
+            $comentario->delete();
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json([

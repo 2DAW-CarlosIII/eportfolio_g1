@@ -16,14 +16,14 @@ class AsignacionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Evidencia $evidencia)
+    public function index(Request $request, Evidencia $evidencia, Asignacion $asignacion)
     {
         $query = Asignacion::query();
         if($query) {
             $query->orWhere('nombre', 'like', '%' .$request->q . '%');
         }
        return AsignacionesResource::collection(
-            $query->where('evidencia_id', $evidencia->id)
+            $query
             ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
             ->paginate($request->perPage));
     }
@@ -31,11 +31,11 @@ class AsignacionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Evidencia $evidencia)
+    public function store(Request $request,Evidencia $evidencia,Asignacion $asignacion)
     {
-        $asignacion = json_decode($request->getContent(), true);
-        $asignacion['evidencia_id'] = $evidencia->id;
-        $asignacion = Asignacion::create($asignacion);
+        $asignacionData = json_decode($request->getContent(), true);
+
+        $asignacion = Asignacion::create($asignacionData);
 
         return new AsignacionesResource($asignacion);
     }
@@ -43,9 +43,9 @@ class AsignacionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Asignacion $asignacion,User $user, Evidencia $evidencia)
+    public function show(Evidencia $evidencia,Asignacion $asignacion)
     {
-        $asignacion = Asignacion::where('evidencia_id', $evidencia->id)->find($asignacion->id);
+       
         return new AsignacionesResource($asignacion);
     }
 
@@ -54,7 +54,7 @@ class AsignacionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asignacion $asignacion, Evidencia $evidencia)
+    public function update(Request $request,Evidencia $evidencia, Asignacion $asignacion)
     {
         $asignacionData = json_decode($request->getContent(), true)->where('evidencia_id', $evidencia->id);
 
@@ -66,10 +66,10 @@ class AsignacionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asignacion $asignacion, Evidencia $evidencia)
+    public function destroy( Evidencia $evidencia,Asignacion $asignacion)
     {
         try {
-            $asignacion->where('evidencia_id', $evidencia->id)->delete();
+            $asignacion->delete();
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json([
