@@ -85,7 +85,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('evidencias.evaluaciones-evidencias', EvaluacionController::class)
         ->parameters([
             'evidencias' => 'evidencia',
-            'evaluaciones' => 'evaluacion'
+            'evaluaciones-evidencias' => 'evaluacion'
         ]);
 
     Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);
