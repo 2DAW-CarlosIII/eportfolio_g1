@@ -16,6 +16,7 @@ use App\Http\Controllers\API\EvidenciaController;
 use App\Http\Controllers\API\CriterioTareaController;
 use App\Http\Controllers\API\AsignacionController;
 use App\Http\Controllers\API\ComentariosController;
+use App\Http\Controllers\API\EvaluacionController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -79,6 +80,12 @@ Route::prefix('v1')->group(function () {
         ->parameters([
             'evidencias' => 'evidencia',
             'comentarios' => 'comentario'
+        ]);
+
+    Route::apiResource('evidencias.evaluaciones-evidencias', EvaluacionController::class)
+        ->parameters([
+            'evidencias' => 'evidencia',
+            'evaluaciones-evidencias' => 'evaluacion'
         ]);
 
     Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);

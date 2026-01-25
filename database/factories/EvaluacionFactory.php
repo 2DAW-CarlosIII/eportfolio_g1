@@ -18,6 +18,8 @@ class EvaluacionFactory extends Factory
     public function definition(): array
     {
         return [
+            'evidencia_id' => random_int(1, 10),
+            'user_id' => random_int(1, 10),
             'puntuacion' => fake()->numberBetween(0, 10),
             'estado' => fake()->randomElement(Evaluacion::ESTADOS),
             'observaciones' => fake()->text(),
