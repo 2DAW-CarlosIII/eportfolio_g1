@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Asignacion extends Model
+class AsignacionRevision extends Model
 {
-    protected $table = 'asignaciones';
+    use HasFactory;
+
+    protected $table = 'asignaciones_revision';
 
     protected $fillable = [
         'evidencia_id',

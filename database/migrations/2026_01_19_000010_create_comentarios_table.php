@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::dropIfExists('comentarios');
         Schema::create('comentarios', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->unsignedBigInteger('evidencia_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->text('contenido');
             $table->enum('tipo', ['publico', 'privado']);
-            $table->text('observaciones')->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->foreign('evidencia_id')->references('id')->on('evidencias')->onDelete('cascade');
