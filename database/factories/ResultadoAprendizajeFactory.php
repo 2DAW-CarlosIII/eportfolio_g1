@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\ModuloFormativo;
+use App\Models\ResultadoAprendizaje;
 
-class ModuloFormativoFactory extends Factory
+class ResultadoAprendizajeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,12 +15,10 @@ class ModuloFormativoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => fake()->word(),
             'codigo' => fake()->word(),
-            'horas_totales' => fake()->numberBetween(1, 100),
-            'curso_escolar' => fake()->word(),
-            'centro' => fake()->word(),
             'descripcion' => fake()->text(),
+            'peso_porcentaje' => fake()->numberBetween(0, 100),
+            'orden' => fake()->numberBetween(1, 10),
         ];
     }
 }

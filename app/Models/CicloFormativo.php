@@ -17,10 +17,8 @@ class CicloFormativo extends Model
         'descripcion',
     ];
     const GRADOS = [
-        'BÁSICA',
-        'G.M.',
-        'G.S.',
-        'C.E. (G.M.)',
-        'C.E. (G.S.)',
+        'basico',
+        'medio',
+        'superior'
     ];
 }

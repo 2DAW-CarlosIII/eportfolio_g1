@@ -34,6 +34,10 @@ class FamiliaProfesionalController extends Controller
 
         $familiaProfesionalData = json_decode($request->getContent(), true);
 
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:familias_profesionales,codigo'
+        ]);
 
         $familiaProfesional = FamiliaProfesional::create($familiaProfesionalData);
         return new FamiliaProfesionalResource($familiaProfesional);
