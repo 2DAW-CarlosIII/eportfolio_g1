@@ -24,6 +24,8 @@ class CicloFormativoController extends Controller
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
                 ->paginate($request->per_page)
         );
+
+
     }
 
     /**
@@ -31,9 +33,13 @@ class CicloFormativoController extends Controller
      */
     public function store(Request $request)
     {
-        $cicloFormativo = json_decode($request->getContent(), true);
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:ciclos_formativos',
+            'grado' => 'required|in:basico,medio,superior',
+        ]);
 
-        $cicloFormativo = CicloFormativo::create($cicloFormativo);
+        $cicloFormativo = CicloFormativo::create($request->all());
 
         return new CicloFormativoResource($cicloFormativo);
     }
@@ -43,13 +49,17 @@ class CicloFormativoController extends Controller
      */
     public function show(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        
+
         return new CicloFormativoResource($cicloFormativo);
+
     }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        
         $cicloFormativoData = json_decode($request->getContent(), true);
         $cicloFormativo->update($cicloFormativoData);
 
@@ -63,7 +73,9 @@ class CicloFormativoController extends Controller
     {
         try {
             $cicloFormativo->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'CicloFormativo eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

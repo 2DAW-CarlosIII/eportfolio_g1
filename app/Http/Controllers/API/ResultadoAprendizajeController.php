@@ -32,9 +32,20 @@ class ResultadoAprendizajeController extends Controller
      */
         public function store(Request $request, ModuloFormativo $moduloFormativo)
     {
-        $resultadoAprendizajeData = json_decode($request->getContent(), true);
+        $request->validate([
+            'codigo' => 'required',
+            'descripcion' => 'required',
+            'peso_porcentaje' => 'required|numeric',
+            'orden' => 'required|numeric',
+        ]);
 
-        $resultadoAprendizaje = ResultadoAprendizaje::create($resultadoAprendizajeData);
+        $resultadoAprendizaje = ResultadoAprendizaje::create([
+            'modulo_formativo_id' => $moduloFormativo->id,
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'peso_porcentaje' => $request->peso_porcentaje,
+            'orden' => $request->orden,
+        ]);
 
         return new ResultadoAprendizajeResource($resultadoAprendizaje);
     }

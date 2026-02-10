@@ -32,9 +32,18 @@ class CriterioEvaluacionController extends Controller
      */
         public function store(Request $request, ResultadoAprendizaje $resultadoAprendizaje)
     {
-        $criterioEvaluacionData = json_decode($request->getContent(), true);
+        $request->validate([
+            'codigo' => 'required',
+            'descripcion' => 'required',
+        ]);
 
-        $criterioEvaluacion = CriterioEvaluacion::create($criterioEvaluacionData);
+        $criterioEvaluacion = CriterioEvaluacion::create([
+            'resultado_aprendizaje_id' => $resultadoAprendizaje->id,
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'peso_porcentaje' => $request->peso_porcentaje,
+            'orden' => $request->orden,
+        ]);
 
         return new CriterioEvaluacionResource($criterioEvaluacion);
     }
@@ -65,7 +74,9 @@ class CriterioEvaluacionController extends Controller
     {
         try {
             $criterioEvaluacion->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'Criterio de Evaluación eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
