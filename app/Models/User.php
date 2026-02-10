@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,7 +49,7 @@ class User extends Authenticatable
     }
 
     public function evidencias(){
-
+        return $this->hasMany(Evidencia::class, 'estudiante_id', 'id');
     }
 
     public function modulosMatriculados(){
@@ -86,5 +87,25 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function esAdministrador(){
+        if($this->email != env('ADMIN_EMAIL')) {
+            return false;
+        }
+        return true;
+    }
+
+    public function roles(){
+        if($this->esAdministrador()){
+            $this->roles = 'administrador';
+        }
+        if($this->esDocente()){
+            $this->roles = 'docente';
+        }
+        if($this->esEstudiante()){
+            $this->roles = 'estudiante';
+        }
+        return $this->roles;
     }
 }

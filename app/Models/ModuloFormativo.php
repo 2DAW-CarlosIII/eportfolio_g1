@@ -25,4 +25,12 @@ class ModuloFormativo extends Model
     {
         return $this->belongsTo(CicloFormativo::class);
     }
+
+    public function matricula(){
+        return $this->hasMany(Matricula::class);
+    }
+
+    public function resultadoAprendizaje(){
+        return $this->hasMany(ResultadoAprendizaje::class);
+    }
 }

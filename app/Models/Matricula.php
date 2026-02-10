@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Matricula extends Model
 {
     use HasFactory;
@@ -13,5 +14,13 @@ class Matricula extends Model
         'estudiante_id',
         'modulo_formativo_id',
     ];
+
+    function moduloFormativo(){
+        return $this->belongsTo(ModuloFormativo::class);
+    }
+
+    function estudiante(){
+        return $this->belongsTo(User::class);
+    }
 
 }

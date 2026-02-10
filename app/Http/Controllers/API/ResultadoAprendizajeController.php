@@ -18,7 +18,7 @@ class ResultadoAprendizajeController extends Controller
 
         $query = ResultadoAprendizaje::query()->where('modulo_formativo_id', $moduloFormativo->id);
         if ($query) {
-            $query->where('codigo', 'like', '%' . $request->q . '%');
+            $query->where('descripcion', 'like', '%' . $request->search . '%');
         }
 
         return ResultadoAprendizajeResource::collection(
@@ -32,9 +32,14 @@ class ResultadoAprendizajeController extends Controller
      */
         public function store(Request $request, ModuloFormativo $moduloFormativo)
     {
-        $resultadoAprendizajeData = json_decode($request->getContent(), true);
-
-        $resultadoAprendizaje = ResultadoAprendizaje::create($resultadoAprendizajeData);
+        $validate_data = $request->validate([
+            'codigo' => 'required|string|max:50|unique:resultados_aprendizaje,codigo',
+            'descripcion' => 'required|string|max:255',
+            'peso_porcentaje' => 'required|numeric|min:0|max:100',
+            'orden' => 'required|numeric|min:0',
+        ]);
+        $validate_data['modulo_formativo_id'] = $moduloFormativo->id;
+        $resultadoAprendizaje = ResultadoAprendizaje::create($validate_data);
 
         return new ResultadoAprendizajeResource($resultadoAprendizaje);
     }
@@ -52,8 +57,14 @@ class ResultadoAprendizajeController extends Controller
      */
     public function update(Request $request, ModuloFormativo $moduloFormativo, ResultadoAprendizaje $resultadoAprendizaje)
     {
-        $resultadoAprendizajeData = json_decode($request->getContent(), true);
-        $resultadoAprendizaje->update($resultadoAprendizajeData);
+        $validate_data = $request->validate([
+            'codigo' => 'required|string|max:50|unique:resultados_aprendizaje,codigo',
+            'descripcion' => 'required|string|max:255',
+            'peso_porcentaje' => 'required|numeric|min:0|max:100',
+            'orden' => 'required|numeric|min:0',
+        ]);
+        $validate_data['modulo_formativo_id'] = $moduloFormativo->id;
+        $resultadoAprendizaje->update($validate_data);
 
         return new ResultadoAprendizajeResource($resultadoAprendizaje);
     }
@@ -65,7 +76,7 @@ class ResultadoAprendizajeController extends Controller
     {
         try {
             $resultadoAprendizaje->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'ResultadoAprendizaje eliminado correctamente'], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

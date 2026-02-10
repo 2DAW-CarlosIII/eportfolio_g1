@@ -67,6 +67,21 @@ class MatriculaController extends Controller
         return MatriculaResource::collection($nuevasMatriculas);
     }
 
+    public function estudiantesLote(Request $request)
+    {
+        $estudiantes = $request->input('estudiantes_id');
+        $modulo = $request->input('modulo_formativo_id');
+        $nuevasMatriculas = [];
+        foreach ($estudiantes as $estudianteId) {
+                $nuevasMatriculas[] = Matricula::create([
+                    'estudiante_id' => $estudianteId,
+                    'modulo_formativo_id' => $modulo,
+                ]);
+            }
+
+        return MatriculaResource::collection($nuevasMatriculas);
+    }
+
     /**
      * Display the specified resource.
      */
