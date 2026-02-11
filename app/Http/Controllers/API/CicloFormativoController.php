@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\CicloFormativo;
+use Gate;
 use Illuminate\Http\Request;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\FamiliaProfesional;
@@ -33,13 +34,17 @@ class CicloFormativoController extends Controller
      */
     public function store(Request $request)
     {
+    
+
         $request->validate([
             'nombre' => 'required',
             'codigo' => 'required|unique:ciclos_formativos',
             'grado' => 'required|in:basico,medio,superior',
+            'descripcion' => 'required',
         ]);
 
         $cicloFormativo = CicloFormativo::create($request->all());
+        Gate::authorize('create', $cicloFormativo);
 
         return new CicloFormativoResource($cicloFormativo);
     }
@@ -49,17 +54,26 @@ class CicloFormativoController extends Controller
      */
     public function show(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
-        
+        if ($cicloFormativo->familia_profesional_id != $familiaProfesional->id) {
+            return response()->json([
+                'message' => 'No se puede mostrar el ciclo formativo'
+            ], 400);
+        }
 
         return new CicloFormativoResource($cicloFormativo);
-
     }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
-        
+        Gate::authorize('update', $cicloFormativo);
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:ciclos_formativos',
+            'grado' => 'required|in:basico,medio,superior',
+            'descripcion' => 'required',
+        ]);
         $cicloFormativoData = json_decode($request->getContent(), true);
         $cicloFormativo->update($cicloFormativoData);
 
@@ -71,6 +85,7 @@ class CicloFormativoController extends Controller
      */
     public function destroy(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        Gate::authorize('delete', $cicloFormativo);
         try {
             $cicloFormativo->delete();
             return response()->json([

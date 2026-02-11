@@ -53,6 +53,12 @@ class CriterioEvaluacionController extends Controller
      */
     public function show(ResultadoAprendizaje $resultadoAprendizaje,CriterioEvaluacion $criterioEvaluacion)
     {
+        if ($criterioEvaluacion->resultado_aprendizaje_id != $resultadoAprendizaje->id) {
+            return response()->json([
+                'message' => 'No se puede mostrar el criterio de evaluación'
+            ], 400);
+        }
+        
         return new CriterioEvaluacionResource($criterioEvaluacion);
     }
 
@@ -72,15 +78,15 @@ class CriterioEvaluacionController extends Controller
      */
     public function destroy(ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $criterioEvaluacion)
     {
-        try {
+        if ($criterioEvaluacion->resultado_aprendizaje_id != $resultadoAprendizaje->id) {
+            return response()->json([
+                'message' => 'No se puede eliminar el criterio de evaluación'
+            ], 400);
+        }else{
             $criterioEvaluacion->delete();
             return response()->json([
                 'message' => 'Criterio de Evaluación eliminado correctamente'
             ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error: ' . $e->getMessage()
-            ], 400);
         }
     }
 }

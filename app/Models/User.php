@@ -48,4 +48,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isAdministrator(): bool
+    {
+        return $this->email === env('ADMIN_EMAIL');
+    }
 }
