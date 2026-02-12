@@ -69,8 +69,13 @@ class MatriculaController extends Controller
 
     public function estudiantesLote(Request $request)
     {
-        $estudiantes = $request->input('estudiantes_id');
-        $modulo = $request->input('modulo_formativo_id');
+        if($request->user()->esAdministrador()){
+            $estudiantes = $request->input('estudiantes_id');
+            $modulo = $request->input('modulo_formativo_id');
+        }else{
+            $estudiantes = [$request->user()->id];
+            $modulo = array_slice($request->input('modulo_formativo_id'), 0, config('app.max_modulos'));
+        }
         $nuevasMatriculas = [];
         foreach ($estudiantes as $estudianteId) {
                 $nuevasMatriculas[] = Matricula::create([
@@ -108,7 +113,7 @@ class MatriculaController extends Controller
     {
         try {
             $matricula->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Matricula eliminado correctamente'], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
