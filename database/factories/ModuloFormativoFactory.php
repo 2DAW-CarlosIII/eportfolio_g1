@@ -4,8 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ModuloFormativo;
-use App\Models\User;
-use App\Models\CicloFormativo;
 
 class ModuloFormativoFactory extends Factory
 {
@@ -23,8 +21,6 @@ class ModuloFormativoFactory extends Factory
             'curso_escolar' => fake()->word(),
             'centro' => fake()->word(),
             'descripcion' => fake()->text(),
-            'docente_id' => random_int(1, 10),
-            'ciclo_formativo_id' => random_int(1, 10),
         ];
     }
 }

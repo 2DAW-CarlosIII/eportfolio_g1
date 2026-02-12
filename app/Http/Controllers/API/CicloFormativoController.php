@@ -7,6 +7,8 @@ use App\Models\CicloFormativo;
 use Illuminate\Http\Request;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\FamiliaProfesional;
+use Illuminate\Support\Facades\Gate;
+
 
 class CicloFormativoController extends Controller
 {
@@ -17,7 +19,7 @@ class CicloFormativoController extends Controller
     {
         $query = CicloFormativo::where('familia_profesional_id', $familiaProfesional->id);
         if ($query) {
-            $query->where('nombre', 'like', '%' . $request->q . '%');
+            $query->where('nombre', 'like', '%' . $request->search . '%');
         }
 
         return CicloFormativoResource::collection(
@@ -29,9 +31,19 @@ class CicloFormativoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, FamiliaProfesional $familiaProfesional)
     {
         $cicloFormativo = json_decode($request->getContent(), true);
+
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:ciclos_formativos,codigo',
+            'grado' => 'required|in:' . implode(',', CicloFormativo::GRADOS),
+        ]);
+
+        $cicloFormativo['familia_profesional_id'] = $familiaProfesional->id;
+
+        Gate::authorize('create', CicloFormativo::class);
 
         $cicloFormativo = CicloFormativo::create($cicloFormativo);
 
@@ -51,7 +63,12 @@ class CicloFormativoController extends Controller
     public function update(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
         $cicloFormativoData = json_decode($request->getContent(), true);
+
+        Gate::authorize('update', $cicloFormativo);
+
         $cicloFormativo->update($cicloFormativoData);
+
+
 
         return new CicloFormativoResource($cicloFormativo);
     }
@@ -59,11 +76,14 @@ class CicloFormativoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
+    public function destroy(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        Gate::authorize('delete', $cicloFormativo);
         try {
             $cicloFormativo->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                "message" => "CicloFormativo eliminado correctamente"
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

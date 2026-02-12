@@ -93,7 +93,9 @@ class MatriculaController extends Controller
     {
         try {
             $matricula->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'Matricula eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

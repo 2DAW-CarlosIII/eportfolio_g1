@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CicloFormativo extends Model
 {
+    use HasFactory;
     protected $table = 'ciclos_formativos';
     protected $fillable = [
         'familia_profesional_id',
@@ -15,10 +17,8 @@ class CicloFormativo extends Model
         'descripcion',
     ];
     const GRADOS = [
-        'BÁSICA',
-        'G.M.',
-        'G.S.',
-        'C.E. (G.M.)',
-        'C.E. (G.S.)',
+        'basico',
+        'medio',
+        'superior'
     ];
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\API\CriterioTareaController;
 use App\Http\Controllers\API\AsignacionController;
 use App\Http\Controllers\API\ComentariosController;
 use App\Http\Controllers\API\EvaluacionController;
+use App\Http\Controllers\API\RolController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -24,6 +25,13 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::prefix('v1')->group(function () {
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('/user', function (Request $request) {
+            return response()->json($request->user());
+        });
+
+    });
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)->parameters([
         'familias-profesionales' => 'familiaProfesional'
     ]);
@@ -87,6 +95,10 @@ Route::prefix('v1')->group(function () {
             'evidencias' => 'evidencia',
             'evaluaciones-evidencias' => 'evaluacion'
         ]);
+
+    Route::apiResource('roles', RolController::class)->parameters([
+        'roles' => 'rol'
+    ]);
 
     Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);
 

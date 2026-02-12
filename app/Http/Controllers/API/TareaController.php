@@ -22,12 +22,12 @@ class TareaController extends Controller
         $query = Tarea::query();
         $query->where('criterio_evaluacion_id', $criterioTarea->criterio_evaluacion_id);
         if ($query) {
-            $query->where('enunciado', 'like', '%' . $request->q . '%');
+            $query->where('observaciones', 'like', '%' . $request->search . '%');
         }
 
         return TareaResource::collection(
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
-            ->paginate($request->per_page)
+                ->paginate($request->per_page)
         );
 
     }
@@ -40,12 +40,12 @@ class TareaController extends Controller
         $criterioTarea = CriterioTarea::query()->where('criterio_evaluacion_id', $criterioEvaluacion->id)->first();
         $query->where('id', $criterioTarea->tarea_id);
         if ($query) {
-            $query->where('enunciado', 'like', '%' . $request->q . '%');
+            $query->where('enunciado', 'like', '%' . $request->search . '%');
         }
 
         return TareaResource::collection(
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
-            ->paginate($request->per_page)
+                ->paginate($request->per_page)
         );
     }
 
@@ -55,6 +55,12 @@ class TareaController extends Controller
     public function store(Request $request, CriterioEvaluacion $criterioEvaluacion)
     {
         $tareaData = json_decode($request->getContent(), true);
+        $request->validate([
+            'fecha_apertura' => 'required',
+            'fecha_cierre' => 'required',
+            'activo' => 'required',
+        ]);
+        $tareaData['criterio_evaluacion_id'] = $criterioEvaluacion->id;
         $tarea = Tarea::create($tareaData);
 
         return new TareaResource($tarea);
@@ -87,7 +93,7 @@ class TareaController extends Controller
     {
         try {
             $tarea->delete();
-            return response()->json(null, 204);
+            return response()->json(null, 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

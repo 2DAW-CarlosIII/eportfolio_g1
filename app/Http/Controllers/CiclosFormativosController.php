@@ -23,7 +23,7 @@ class CiclosFormativosController extends Controller
     public function getCreate()
     {
         return view('ciclos-formativos.create')
-        ->with('grados', CicloFormativo::GRADOS);
+            ->with('grados', CicloFormativo::GRADOS);
     }
 
     public function getEdit($id)

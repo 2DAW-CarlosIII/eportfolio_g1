@@ -17,7 +17,7 @@ class EvidenciaController extends Controller
     {
         $query = Evidencia::where('tarea_id', $tarea->id);
         if ($query) {
-            $query->where('descripcion', 'like', '%' . $request->q . '%');
+            $query->where('descripcion', 'like', '%' . $request->search . '%');
         }
 
         return EvidenciaResource::collection(
@@ -39,9 +39,18 @@ class EvidenciaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Tarea $tarea)
     {
         $evidencia = json_decode($request->getContent(), true);
+
+        $request->validate([
+            'url' => 'required',
+            'descripcion' => 'required',
+            'estado_validacion' => 'required | in:' . implode(',', Evidencia::ESTADOS_VALIDACION),
+        ]);
+
+        $evidencia['tarea_id'] = $tarea->id;
+        $evidencia['estudiante_id'] = $request->user()->id;
 
         $evidencia = Evidencia::create($evidencia);
 
@@ -74,7 +83,9 @@ class EvidenciaController extends Controller
     {
         try {
             $evidencia->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'Evidencia eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
