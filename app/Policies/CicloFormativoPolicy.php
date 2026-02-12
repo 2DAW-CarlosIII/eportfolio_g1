@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\CicloFormativo;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
 
 class CicloFormativoPolicy
 {
@@ -29,7 +30,7 @@ class CicloFormativoPolicy
      */
     public function create(User $user): bool
     {
-        return $user->email === config('app.admin.email');
+        return Gate::check('create', CicloFormativo::class);
     }
 
     /**
@@ -37,7 +38,7 @@ class CicloFormativoPolicy
      */
     public function update(User $user, CicloFormativo $cicloFormativo): bool
     {
-        return $user->email === config('app.admin.email');
+        return Gate::check('update', $cicloFormativo);
     }
 
     /**
@@ -45,7 +46,7 @@ class CicloFormativoPolicy
      */
     public function delete(User $user, CicloFormativo $cicloFormativo): bool
     {
-        return $user->email === config('app.admin.email');
+        return Gate::check('delete', $cicloFormativo);
     }
 
     /**
@@ -53,7 +54,7 @@ class CicloFormativoPolicy
      */
     public function restore(User $user, CicloFormativo $cicloFormativo): bool
     {
-        return $user->email === config('app.admin.email');
+        return Gate::check('restore', $cicloFormativo);
     }
 
     /**
@@ -61,6 +62,6 @@ class CicloFormativoPolicy
      */
     public function forceDelete(User $user, CicloFormativo $cicloFormativo): bool
     {
-        return $user->email === config('app.admin.email');
+        return Gate::check('forceDelete', $cicloFormativo);
     }
 }

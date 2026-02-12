@@ -9,6 +9,7 @@ use App\Http\Resources\CicloFormativoResource;
 use App\Models\FamiliaProfesional;
 use Illuminate\Support\Facades\Gate;
 
+
 class CicloFormativoController extends Controller
 {
     /**

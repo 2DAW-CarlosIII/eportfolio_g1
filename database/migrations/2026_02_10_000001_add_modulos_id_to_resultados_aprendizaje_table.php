@@ -22,8 +22,9 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('resultados_aprendizaje', function (Blueprint $table) {
-            $table->dropColumn('modulo_formativo_id');
             $table->dropForeign(['modulo_formativo_id']);
+            $table->dropColumn('modulo_formativo_id');
+
         });
     }
 };
