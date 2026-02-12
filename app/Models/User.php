@@ -87,5 +87,29 @@ class User extends Authenticatable
         return $this->email === config('app.admin.email');
     }
 
+    protected $appends = ['roles'];
+
+    public function rolesBD()
+    {
+        return $this->belongsToMany(Rol::class, 'user_roles', 'user_id', 'role_id');
+    }
+    public function getRolesAttribute(): array
+    {
+        $roles = $this->rolesBD->pluck('name')->toArray();
+        if ($this->esAdministrador() && !in_array('administrador', $roles)) {
+            $roles[] = 'administrador';
+        }
+
+        if ($this->esDocente() && !in_array('docente', $roles)) {
+            $roles[] = 'docente';
+        }
+
+        if ($this->esEstudiante() && !in_array('estudiante', $roles)) {
+            $roles[] = 'estudiante';
+        }
+
+        return $roles;
+    }
+
 
 }

@@ -7,6 +7,7 @@ use App\Models\CicloFormativo;
 use Illuminate\Http\Request;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\FamiliaProfesional;
+use Illuminate\Support\Facades\Gate;
 
 class CicloFormativoController extends Controller
 {
@@ -31,7 +32,6 @@ class CicloFormativoController extends Controller
      */
     public function store(Request $request, FamiliaProfesional $familiaProfesional)
     {
-        $this->authorizeAdmin($request);
         $cicloFormativo = json_decode($request->getContent(), true);
 
         $request->validate([
@@ -39,7 +39,10 @@ class CicloFormativoController extends Controller
             'codigo' => 'required|unique:ciclos_formativos,codigo',
             'grado' => 'required|in:' . implode(',', CicloFormativo::GRADOS),
         ]);
+
         $cicloFormativo['familia_profesional_id'] = $familiaProfesional->id;
+
+        Gate::authorize('create', CicloFormativo::class);
 
         $cicloFormativo = CicloFormativo::create($cicloFormativo);
 
@@ -58,9 +61,13 @@ class CicloFormativoController extends Controller
      */
     public function update(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
-        $this->authorizeAdmin($request);
         $cicloFormativoData = json_decode($request->getContent(), true);
+
+        Gate::authorize('update', $cicloFormativo);
+
         $cicloFormativo->update($cicloFormativoData);
+
+
 
         return new CicloFormativoResource($cicloFormativo);
     }
@@ -70,7 +77,7 @@ class CicloFormativoController extends Controller
      */
     public function destroy(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
-        $this->authorizeAdmin($request);
+        Gate::authorize('delete', $cicloFormativo);
         try {
             $cicloFormativo->delete();
             return response()->json([
@@ -80,14 +87,6 @@ class CicloFormativoController extends Controller
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
             ], 400);
-        }
-    }
-
-    private function authorizeAdmin(Request $request): void
-    {
-        $user = $request->user();
-        if (!$user || $user->email !== config('app.admin.email')) {
-            abort(403);
         }
     }
 }

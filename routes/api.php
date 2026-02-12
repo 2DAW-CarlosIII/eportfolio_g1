@@ -26,28 +26,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
 
-    // Route::middleware(['auth:sanctum'])->group(function () {
-    //     Route::get('user', function (Request $request) {
-    //         $user = $request->user();
-    //         $roles = [];
-    //         if ($user->esAdministrador()) {
-    //             $roles[] = 'administrador';
-    //         }
-    //         if ($user->esDocente()) {
-    //             $roles[] = 'docente';
-    //         }
-    //         if ($user->esEstudiante()) {
-    //             $roles[] = 'estudiante';
-    //         }
-    //         return response()->json([
-    //             'id' => $user->id,
-    //             'name' => $user->name,
-    //             'email' => $user->email,
-    //             'roles' => $roles,
-    //         ]);
-    //     });
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('/user', function (Request $request) {
+            return response()->json($request->user());
+        });
 
-    // });
+    });
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)->parameters([
         'familias-profesionales' => 'familiaProfesional'
     ]);
