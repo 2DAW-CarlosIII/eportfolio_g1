@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Tarea extends Model
 {
@@ -13,10 +13,27 @@ class Tarea extends Model
 
     protected $table = 'tareas';
     protected $fillable = [
-        'criterio_evaluacion_id',
         'fecha_apertura',
         'fecha_cierre',
         'activo',
-        'enunciado'
+        'observaciones'
     ];
+
+    protected $casts = [
+        'fecha_apertura' => 'datetime',
+        'fecha_cierre' => 'datetime',
+    ];
+
+    public function criteriosEvaluacion()
+    {
+        return $this->belongsToMany(CriterioEvaluacion::class, 'criterios_tareas', 'tarea_id', 'criterio_evaluacion_id');
+    }
+
+    public function evidencias(){
+        return $this->hasMany(Evidencia::class);
+    }
+
+    public function asignacionAleatoria($num = 3){
+        
+    }
 }

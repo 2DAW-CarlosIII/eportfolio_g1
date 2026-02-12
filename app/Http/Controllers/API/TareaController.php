@@ -18,9 +18,7 @@ class TareaController extends Controller
      */
     public function index(Request $request, CriterioEvaluacion $criterioEvaluacion)
     {
-        $criterioTarea = CriterioTarea::query()->where('criterio_evaluacion_id', $criterioEvaluacion->id)->first();
-        $query = Tarea::query();
-        $query->where('criterio_evaluacion_id', $criterioTarea->criterio_evaluacion_id);
+        $query = $criterioEvaluacion->tareas()->newQuery();
         if ($query) {
             $query->where('enunciado', 'like', '%' . $request->q . '%');
         }
@@ -54,8 +52,14 @@ class TareaController extends Controller
      */
     public function store(Request $request, CriterioEvaluacion $criterioEvaluacion)
     {
-        $tareaData = json_decode($request->getContent(), true);
-        $tarea = Tarea::create($tareaData);
+        $validate_data = $request->validate([
+            'fecha_apertura' => 'required',
+            'fecha_cierre' => 'required',
+            'activo' => 'required',
+            'observaciones' => 'required',
+        ]);
+        $validate_data['criterio_evaluacion_id'] = $criterioEvaluacion->id;
+        $tarea = Tarea::create($validate_data);
 
         return new TareaResource($tarea);
     }
@@ -73,9 +77,14 @@ class TareaController extends Controller
      */
     public function update(Request $request, CriterioEvaluacion $criterioEvaluacion, Tarea $tarea)
     {
-        $tareaData = json_decode($request->getContent(), true);
-
-        $tarea->update($tareaData);
+        $validate_data = $request->validate([
+            'fecha_apertura' => 'required',
+            'fecha_cierre' => 'required',
+            'activo' => 'required',
+            'observaciones' => 'required',
+        ]);
+        $validate_data['criterio_evaluacion_id'] = $criterioEvaluacion->id;
+        $tarea->update($validate_data);
 
         return new TareaResource($tarea);
     }
@@ -87,11 +96,16 @@ class TareaController extends Controller
     {
         try {
             $tarea->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Tarea eliminad0 correctamente'], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
             ], 400);
         }
+    }
+
+    public function asignacionAleatoria(){
+        $this->asignacionAleatoria();
+        return response()->json(['message' => 'Asignacion aleatoria realizada correctamente'], 200);        
     }
 }

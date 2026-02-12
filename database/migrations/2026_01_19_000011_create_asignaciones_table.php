@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('asignaciones');
-        Schema::create('asignaciones', function (Blueprint $table) {
-            $table->id()->primary();
+        Schema::dropIfExists('asignaciones_revision');
+        Schema::create('asignaciones_revision', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('evidencia_id')->nullable();
             $table->unsignedBigInteger('revisor_id')->nullable();
             $table->unsignedBigInteger('asignado_por_id')->nullable();
             $table->date('fecha_limite');
-            $table->enum('estado', ['pendiente', 'en_proceso', 'completado']);
+            $table->enum('estado', ['pendiente', 'en_proceso', 'completada']);
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->foreign('evidencia_id')->references('id')->on('evidencias')->onDelete('cascade');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignaciones');
+        Schema::dropIfExists('asignaciones_revision');
     }
 };

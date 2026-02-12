@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\ModuloFormativo;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
 use App\Models\CicloFormativo;
 
 class ModuloFormativoFactory extends Factory
@@ -17,14 +17,14 @@ class ModuloFormativoFactory extends Factory
     public function definition(): array
     {
         return [
+            'ciclo_formativo_id' => CicloFormativo::factory()->create()->id,
             'nombre' => fake()->word(),
             'codigo' => fake()->word(),
             'horas_totales' => fake()->numberBetween(1, 100),
             'curso_escolar' => fake()->word(),
             'centro' => fake()->word(),
+            'docente_id' => User::factory()->create()->id,
             'descripcion' => fake()->text(),
-            'docente_id' => random_int(1, 10),
-            'ciclo_formativo_id' => random_int(1, 10),
         ];
     }
 }

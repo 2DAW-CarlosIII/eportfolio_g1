@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,8 +22,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'nombre',
-        'apellidos',
         'password',
     ];
 
@@ -47,5 +46,55 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function evidencias(){
+        return $this->hasMany(Evidencia::class, 'estudiante_id', 'id');
+    }
+
+    public function modulosMatriculados(){
+        return $this->belongsToMany(ModuloFormativo::class, 'matriculas', 'estudiante_id', 'modulo_formativo_id');
+    }
+
+    public function modulosImpartidos()
+    {
+        return $this->hasMany(ModuloFormativo::class, 'docente_id', 'id');
+    }
+
+    public function esDocente(){
+        if($this->modulosImpartidos()->count() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public function esDocenteModulo(){
+        if($this->modulosImpartidos()->exists()){
+            return true;
+        }
+        return false;
+    }
+
+    public function esEstudiante(){
+        if($this->modulosMatriculados()->exists()){
+            return true;
+        }
+        return false;
+    }
+
+    public function esEstudianteModulo(ModuloFormativo $moduloFormativo){
+        if($this->modulosMatriculados()->where('modulo_formativo_id', $moduloFormativo->id)->exists()){
+            return true;
+        }
+        return false;
+    }
+
+    public function esAdministrador(){
+        return $this->email == env('ADMIN_EMAIL');
+    }
+
+    public function asignaciones_revision()
+    {
+        return $this->hasMany(AsignacionRevision::class);
     }
 }
