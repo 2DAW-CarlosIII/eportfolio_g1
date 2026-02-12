@@ -17,14 +17,14 @@ class ModuloFormativoFactory extends Factory
     public function definition(): array
     {
         return [
+            'ciclo_formativo_id' => CicloFormativo::factory(),
             'nombre' => fake()->word(),
             'codigo' => fake()->word(),
             'horas_totales' => fake()->numberBetween(1, 100),
             'curso_escolar' => fake()->word(),
             'centro' => fake()->word(),
-            'descripcion' => fake()->text(),
-            'docente_id' => random_int(1, 10),
-            'ciclo_formativo_id' => random_int(1, 10),
+            'docente_id' => User::factory(),
+            'descripcion' => fake()->text()
         ];
     }
 }

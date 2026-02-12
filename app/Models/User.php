@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,11 +21,9 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'nombre',
-        'apellidos',
-        'password',
+       'name',
+       'email',
+       'password',
     ];
 
     /**
@@ -53,4 +53,13 @@ class User extends Authenticatable
     {
         return $this->email === env('ADMIN_EMAIL');
     }
+
+    public function Evidencia(): HasMany
+     {
+          return $this->hasMany(Evidencia::class);
+     }
+
+       
+
+    
 }

@@ -18,7 +18,7 @@ class CriterioEvaluacionController extends Controller
 
         $query = CriterioEvaluacion::query()->where('resultado_aprendizaje_id', $resultadoAprendizaje->id);
         if ($query) {
-            $query->where('codigo', 'like', '%' . $request->q . '%');
+            $query->where('descripcion', 'like', '%' . $request->search . '%');
         }
 
         return CriterioEvaluacionResource::collection(

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('descripcion');
             $table->enum('estado_validacion', ['pendiente', 'validada', 'rechazada']);
             $table->timestamps();
-            $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
-            $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade');
+            /* $table->foreign('estudiante_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade'); */
 
         });
 

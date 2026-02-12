@@ -18,7 +18,7 @@ class ModuloFormativoController extends Controller
     {
       $query = ModuloFormativo::query()->where('ciclo_formativo_id', $cicloFormativo->id);
         if ($query) {
-            $query->where('nombre', 'like', '%' . $request->q . '%');
+            $query->where('nombre', 'like', '%' . $request->search. '%');
         }
 
         return ModuloFormativoResource::collection(
@@ -40,7 +40,7 @@ class ModuloFormativoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,CicloFormativo $cicloFormativo)
     {
         $request->validate([
             'nombre' => 'required',
@@ -49,14 +49,10 @@ class ModuloFormativoController extends Controller
             'curso_escolar' => 'required',
             'centro'=> 'required'
         ]);
-        $moduloFormativo = ModuloFormativo::create([
-            'nombre' => $request->nombre,
-            'codigo' => $request->codigo,
-            'horas_totales' => $request->horas_totales,
-            'curso_escolar' => $request->curso_escolar,
-            'centro' => $request->centro
-        ]);
-
+        
+        $request['ciclo_formativo_id'] = $cicloFormativo->id;
+        $request['docente_id'] = $request->user()->id;
+        $moduloFormativo = ModuloFormativo::create($request->all());
        
 
         return new ModuloFormativoResource($moduloFormativo);

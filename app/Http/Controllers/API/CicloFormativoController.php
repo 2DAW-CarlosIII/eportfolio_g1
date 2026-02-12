@@ -17,8 +17,8 @@ class CicloFormativoController extends Controller
     public function index(Request $request, FamiliaProfesional $familiaProfesional)
     {
         $query = CicloFormativo::where('familia_profesional_id', $familiaProfesional->id);
-        if ($query) {
-            $query->where('nombre', 'like', '%' . $request->q . '%');
+        if ($request->search) {
+            $query->where('nombre', 'like', '%' . $request->search . '%');
         }
 
         return CicloFormativoResource::collection(
@@ -32,10 +32,11 @@ class CicloFormativoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,FamiliaProfesional $familiaProfesional)
     {
+        $cicloFormativo = new CicloFormativo();
+        Gate::authorize('create', $cicloFormativo);
     
-
         $request->validate([
             'nombre' => 'required',
             'codigo' => 'required|unique:ciclos_formativos',
@@ -43,8 +44,7 @@ class CicloFormativoController extends Controller
             'descripcion' => 'required',
         ]);
 
-        $cicloFormativo = CicloFormativo::create($request->all());
-        Gate::authorize('create', $cicloFormativo);
+        $cicloFormativo = $familiaProfesional->ciclos_formativos()->create($request->all());
 
         return new CicloFormativoResource($cicloFormativo);
     }
