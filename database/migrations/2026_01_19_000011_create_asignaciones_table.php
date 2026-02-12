@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('revisor_id')->nullable();
             $table->unsignedBigInteger('asignado_por_id')->nullable();
             $table->date('fecha_limite');
-            $table->enum('estado', ['pendiente', 'en_proceso', 'completado']);
+            $table->enum('estado', ['pendiente', 'en_proceso', 'completada']);
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->foreign('evidencia_id')->references('id')->on('evidencias')->onDelete('cascade');

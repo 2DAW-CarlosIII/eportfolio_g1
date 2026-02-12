@@ -15,19 +15,24 @@ use App\Http\Controllers\API\CicloFormativoController;
 use App\Http\Controllers\API\ModuloFormativoController;
 use App\Http\Controllers\API\MatriculaController;
 use App\Http\Controllers\API\EvidenciaController;
-use App\Http\Controllers\API\AsignacionController;
+use App\Http\Controllers\API\AsignacionRevisionController;
 use App\Http\Controllers\API\ComentariosController;
 use App\Http\Controllers\API\EvaluacionController;
-
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
+use App\Http\Controllers\API\TokenController;
 
 
 Route::prefix('v1')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('user', UserController::class)->parameters([
+            'user' => 'id'
+        ]);
+    
     Route::apiResource('user', UserController::class)->parameters([
         'user' => 'id'
     ]);
+
+    Route::get('user', [UserController::class, 'getUserRoles']);
+    Route::get('users/{id}/asignaciones-revision', [AsignacionRevisionController::class, 'indexUserAsignacion']);
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)->parameters([
         'familias-profesionales' => 'familiaProfesional'
     ]);
@@ -74,7 +79,9 @@ Route::prefix('v1')->group(function () {
             'evidencias' => 'evidencia'
         ]);
 
-    Route::apiResource('evidencias.asignaciones-revision', AsignacionController::class)
+    Route::post('tareas/asignacion-aleatoria', [TareaController::class, 'asignacionAleatoria']);
+
+    Route::apiResource('evidencias.asignaciones-revision', AsignacionRevisionController::class)
         ->parameters([
             'evidencias' => 'evidencia',
             'asignaciones-revision' => 'asignacion'
@@ -97,7 +104,7 @@ Route::prefix('v1')->group(function () {
             'roles' => 'rol'
         ]);
 
-    Route::get('users/{id}/asignaciones-revision', [AsignacionController::class, 'indexUserAsignacion']);
+    Route::get('users/{id}/asignaciones-revision', [AsignacionRevisionController::class, 'indexUserAsignacion']);
 
     Route::get('resultados-aprendizaje/{resultadoAprendizaje}/tareas', [TareaController::class, 'indexResultadoTarea']);
 
@@ -113,10 +120,9 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('modulos-matriculados', [MatriculaController::class, 'modulosMatriculados']);
     });
-
-    
-
-
+    Route::post('tokens', [TokenController::class, 'store']);
+    Route::delete('tokens', [TokenController::class, 'destroy'])->middleware('auth:sanctum');
+    });
 });
 
 

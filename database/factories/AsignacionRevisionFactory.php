@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Evidencia;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +19,11 @@ class AsignacionRevisionFactory extends Factory
     public function definition(): array
     {
         return [
-            'evidencia_id' => $this->faker->numberBetween(1, 100),
-            'revisor_id' => $this->faker->numberBetween(1, 100),
-            'asignado_por_id' => $this->faker->numberBetween(1, 100),
+            'evidencia_id' => Evidencia::factory(),
+            'revisor_id' => User::factory(),
+            'asignado_por_id' => User::factory(),
             'fecha_limite' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
-            'estado' => $this->faker->randomElement(['pendiente', 'en_proceso', 'completado']),
+            'estado' => $this->faker->randomElement(['pendiente', 'en_proceso', 'completada']),
         ];
     }
 }

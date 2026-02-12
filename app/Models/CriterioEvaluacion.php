@@ -16,4 +16,14 @@ class CriterioEvaluacion extends Model
                 'peso_porcentaje',
                 'orden'
         ];
+
+        public function resultadoAprendizaje()
+        {
+            return $this->belongsTo(ResultadoAprendizaje::class);
+        }
+
+        public function tareas()
+        {
+            return $this->belongsToMany(Tarea::class, 'criterios_tareas', 'criterio_evaluacion_id', 'tarea_id');
+        }
 }

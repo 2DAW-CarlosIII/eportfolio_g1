@@ -90,22 +90,11 @@ class User extends Authenticatable
     }
 
     public function esAdministrador(){
-        if($this->email != env('ADMIN_EMAIL')) {
-            return false;
-        }
-        return true;
+        return $this->email == env('ADMIN_EMAIL');
     }
 
-    public function roles(){
-        if($this->esAdministrador()){
-            $this->roles = 'administrador';
-        }
-        if($this->esDocente()){
-            $this->roles = 'docente';
-        }
-        if($this->esEstudiante()){
-            $this->roles = 'estudiante';
-        }
-        return $this->roles;
+    public function asignaciones_revision()
+    {
+        return $this->hasMany(AsignacionRevision::class);
     }
 }

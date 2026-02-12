@@ -25,6 +25,24 @@ class UserController extends Controller
         );
     }
 
+    public function getUserRoles(Request $request){
+        $roles = [];
+
+        if($request->user()->esAdministrador()){
+            $roles[] = 'administrador';
+        }
+        if($request->user()->esDocente()){
+            $roles[] = 'docente';
+        }
+        if($request->user()->esEstudiante()){
+            $roles[] = 'estudiante';
+        }
+        return [
+            'user' => $request->user(),
+            'roles' => $roles
+        ];
+    }
+
     /**
      * Store a newly created resource in storage.
      */

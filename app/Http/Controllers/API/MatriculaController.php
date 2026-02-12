@@ -16,7 +16,7 @@ class MatriculaController extends Controller
      */
     public function index(Request $request, ModuloFormativo $moduloFormativo)
     {
-        $query = Matricula::where('modulo_formativo_id', $moduloFormativo->id);
+        $query = $moduloFormativo->matricula()->newQuery();
 
         return MatriculaResource::collection(
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
@@ -52,8 +52,14 @@ class MatriculaController extends Controller
 
     public function matriculasLote(Request $request)
     {
-        $estudiantes = $request->input('estudiantes_id');
-        $modulos = $request->input('modulos_formativos_id');
+        if ($request->user()->esAdministrador()) {
+           $estudiantes = $request->input('estudiantes_id');
+           $modulos = $request->input('modulos_formativos_id');
+       } else {
+           $estudiantes = [$request->user()->id];
+           $modulos = array_slice($request->input('modulos_formativos_id'), 0, config('app.max_modulos_matricula', 5));
+       }
+       
         $nuevasMatriculas = [];
         foreach ($estudiantes as $estudianteId) {
             foreach ($modulos as $moduloId) {
@@ -67,25 +73,7 @@ class MatriculaController extends Controller
         return MatriculaResource::collection($nuevasMatriculas);
     }
 
-    public function estudiantesLote(Request $request)
-    {
-        if($request->user()->esAdministrador()){
-            $estudiantes = $request->input('estudiantes_id');
-            $modulo = $request->input('modulo_formativo_id');
-        }else{
-            $estudiantes = [$request->user()->id];
-            $modulo = array_slice($request->input('modulo_formativo_id'), 0, config('app.max_modulos'));
-        }
-        $nuevasMatriculas = [];
-        foreach ($estudiantes as $estudianteId) {
-                $nuevasMatriculas[] = Matricula::create([
-                    'estudiante_id' => $estudianteId,
-                    'modulo_formativo_id' => $modulo,
-                ]);
-            }
-
-        return MatriculaResource::collection($nuevasMatriculas);
-    }
+    
 
     /**
      * Display the specified resource.

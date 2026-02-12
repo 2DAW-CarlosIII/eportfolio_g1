@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('resultados_aprendizaje');
         Schema::create('resultados_aprendizaje', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('modulo_formativo_id')->nullable();
@@ -19,7 +20,6 @@ return new class extends Migration
             $table->float('peso_porcentaje')->check('peso_porcentaje >= 0 AND peso_porcentaje <= 100')->nullable();
             $table->integer('orden')->check('orden >= 1');
             $table->timestamps();
-            $table->foreign('modulo_formativo_id')->references('id')->on('ciclos_formativos');
         });
     }
 

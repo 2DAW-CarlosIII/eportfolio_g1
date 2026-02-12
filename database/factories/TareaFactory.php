@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\CriterioEvaluacion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,11 +25,11 @@ class TareaFactory extends Factory
     public function definition(): array
     {
         return [
-            'criterio_evaluacion_id' => random_int(1, 88),
+            'criterio_evaluacion_id' => CriterioEvaluacion::factory(),
             'fecha_apertura' => fake()->dateTimeBetween('-1 week', '+1 week'),
             'fecha_cierre' => fake()->dateTimeBetween('-1 week', '+1 week'),
             'activo' => fake()->boolean(),
-            'enunciado' => fake()->text(),
+            'observaciones' => fake()->text(),
         ];
     }
 

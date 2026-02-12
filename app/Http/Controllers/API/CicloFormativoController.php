@@ -38,10 +38,10 @@ class CicloFormativoController extends Controller
             ], 403);
         }
         $validate_data = $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string',
             'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo',
             'grado' => 'required|string|max:50|in:' . implode(',', CicloFormativo::GRADOS),
-            'descripcion' => 'nullable|string|max:255',
+            'descripcion' => 'nullable|string',
         ]);
         $validate_data['familia_profesional_id'] = $FamiliaProfesionalId;
         $cicloFormativo = CicloFormativo::create($validate_data);
@@ -67,10 +67,10 @@ class CicloFormativoController extends Controller
             ], 403);
         }
         $validate_data = $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string',
             'codigo' => 'required|string|max:50|unique:ciclos_formativos,codigo,',
             'grado' => 'required|string|max:50|in:' . implode(',', CicloFormativo::GRADOS),
-            'descripcion' => 'nullable|string|max:255',
+            'descripcion' => 'nullable|string',
         ]);
         $validate_data['familia_profesional_id'] = $FamiliaProfesionalId;
         $cicloFormativo->update($validate_data);

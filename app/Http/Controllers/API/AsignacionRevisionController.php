@@ -7,6 +7,7 @@ use App\Http\Resources\AsignacionesRevisionResource;
 use App\Models\AsignacionRevision;
 use App\Models\Evidencia;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AsignacionRevisionController extends Controller
 {
@@ -15,23 +16,30 @@ class AsignacionRevisionController extends Controller
      */
     public function index(Request $request, Evidencia $evidencia)
     {
-        $query = AsignacionRevision::where('evidencia_id', $evidencia->id);
+        $query = $evidencia->asignaciones_revision()->newQuery();
         if($query) {
-            $query->orWhere('revisor_id', 'like', '%' .$request->q . '%');
+            $query->where('revisor_id', 'like', '%' .$request->search . '%');
+        }
+        if($query){
+            $query->where('estado', 'like', '%' .$request->estado_asignacion . '%');
         }
        return AsignacionesRevisionResource::collection(
-            $query->where('evidencia_id', $evidencia->id)
-            ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage));
+            $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+            ->paginate($request->per_page));
     }
 
-    public function indexUserAsignacion(Request $request, $id) // $id
+    public function indexUserAsignacion(Request $request, User $user) // $id
     {
-        $query = AsignacionRevision::where('asignado_por_id', $id);
+        $query = $user->asignaciones_revision()->newQuery();
+        if($query) {
+            $query->where('revisor_id', 'like', '%' .$request->search . '%');
+        }
+        if($query){
+            $query->where('estado', 'like', '%' .$request->estado_asignacion . '%');
+        }
        return AsignacionesRevisionResource::collection(
-            $query->where('asignado_por_id', $id)
-            ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage));
+            $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+            ->paginate($request->per_page));
     }
 
     /**
@@ -39,9 +47,16 @@ class AsignacionRevisionController extends Controller
      */
     public function store(Request $request,Evidencia $evidencia,AsignacionRevision $asignacion)
     {
-        $asignacionData = json_decode($request->getContent(), true);
+        $validate_data = $request->validate([
+            'fecha_limite' => 'required|date',
+            'estado_validacion' => 'in:' . implode(',', AsignacionRevision::ESTADOS),
+        ]);
 
-        $asignacion = AsignacionRevision::create($asignacionData);
+        $validate_data['evidencia_id'] = $evidencia->id;    
+        $validate_data['revisor_id'] = $request->revisor_id;
+        $validate_data['asignado_por_id'] = $request->asignado_por_id;
+
+        $asignacion = AsignacionRevision::create($validate_data);
 
         return new AsignacionesRevisionResource($asignacion);
     }
@@ -62,9 +77,16 @@ class AsignacionRevisionController extends Controller
      */
     public function update(Request $request,Evidencia $evidencia, AsignacionRevision $asignacion)
     {
-        $asignacionData = json_decode($request->getContent(), true);
+        $validate_data = $request->validate([
+            'fecha_limite' => 'required|date',
+            'estado_validacion' => 'in:' . implode(',', AsignacionRevision::ESTADOS),
+        ]);
 
-        $asignacion->update($asignacionData);
+        $validate_data['evidencia_id'] = $evidencia->id;    
+        $validate_data['revisor_id'] = $request->revisor_id;
+        $validate_data['asignado_por_id'] = $request->asignado_por_id;
+
+        $asignacion->update($validate_data);
 
         return new AsignacionesRevisionResource($asignacion);
     }
@@ -76,7 +98,9 @@ class AsignacionRevisionController extends Controller
     {
         try {
             $asignacion->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'AsignacionRevision eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

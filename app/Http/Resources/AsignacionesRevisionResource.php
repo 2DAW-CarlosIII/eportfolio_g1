@@ -14,6 +14,15 @@ class AsignacionesRevisionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'evidencia_id' => $this->evidencia_id,
+            'revisor_id' => $this->revisor_id,
+            'asignado_por_id' => $this->asignado_por_id,
+            'fecha_limite' => $this->fecha_limite,
+            'estado' => $this->estado,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
