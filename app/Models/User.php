@@ -21,8 +21,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'nombre',
-        'apellidos',
         'password',
     ];
 
@@ -48,4 +46,62 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected $appends = ['roles'];
+
+    public function getRolesAttribute(){
+        $roles = [];
+        if($this->esAdministrador()){
+            $roles[] = 'administrador';
+        }
+        if($this->esDocente()){
+            $roles[] = 'docente';
+        }
+        if($this->esEstudiante()){
+            $roles[] = 'estudiante';
+        }
+        return $roles;
+    }
+
+
+
+    public function esAdministrador(): bool
+    {
+        if ($this) {
+            return $this->email === env('ADMIN_EMAIL');
+
+        }else{
+            return true;
+        }
+
+    }
+
+    public function evidencias(){
+        return $this->hasMany(Evidencia::class, 'estudiante_id');
+    }
+
+    public function modulosImpartidos(){
+        return $this-> hasMany(ModuloFormativo::class, 'docente_id');
+    }
+
+    public function esDocente(){
+        return $this->modulosImpartidos()->exists();
+    }
+
+    public function esDocenteModulo(ModuloFormativo $modulo){
+        return $this->id == $modulo->docente_id;
+    }
+
+    public function modulosMatriculados(){
+        return $this->belongsToMany(ModuloFormativo::class, 'matriculas', 'estudiante_id', 'modulo_formativo_id');
+    }
+
+    public function esEstudiante(){
+        return $this->modulosMatriculados()->exists();
+    }
+
+    public function esEstudianteModulo(ModuloFormativo $modulo){
+        return $this->modulosMatriculados->contains($modulo->id);
+    }
+
 }
