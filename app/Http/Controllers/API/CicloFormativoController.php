@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\CicloFormativo;
+use Gate;
 use Illuminate\Http\Request;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\FamiliaProfesional;
@@ -16,24 +17,34 @@ class CicloFormativoController extends Controller
     public function index(Request $request, FamiliaProfesional $familiaProfesional)
     {
         $query = CicloFormativo::where('familia_profesional_id', $familiaProfesional->id);
-        if ($query) {
-            $query->where('nombre', 'like', '%' . $request->q . '%');
+        if ($request->search) {
+            $query->where('nombre', 'like', '%' . $request->search . '%');
         }
 
         return CicloFormativoResource::collection(
             $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
                 ->paginate($request->per_page)
         );
+
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,FamiliaProfesional $familiaProfesional)
     {
-        $cicloFormativo = json_decode($request->getContent(), true);
+        $cicloFormativo = new CicloFormativo();
+        Gate::authorize('create', $cicloFormativo);
+    
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:ciclos_formativos',
+            'grado' => 'required|in:basico,medio,superior',
+            'descripcion' => 'required',
+        ]);
 
-        $cicloFormativo = CicloFormativo::create($cicloFormativo);
+        $cicloFormativo = $familiaProfesional->ciclos_formativos()->create($request->all());
 
         return new CicloFormativoResource($cicloFormativo);
     }
@@ -43,6 +54,12 @@ class CicloFormativoController extends Controller
      */
     public function show(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        if ($cicloFormativo->familia_profesional_id != $familiaProfesional->id) {
+            return response()->json([
+                'message' => 'No se puede mostrar el ciclo formativo'
+            ], 400);
+        }
+
         return new CicloFormativoResource($cicloFormativo);
     }
     /**
@@ -50,6 +67,13 @@ class CicloFormativoController extends Controller
      */
     public function update(Request $request, FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        Gate::authorize('update', $cicloFormativo);
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:ciclos_formativos',
+            'grado' => 'required|in:basico,medio,superior',
+            'descripcion' => 'required',
+        ]);
         $cicloFormativoData = json_decode($request->getContent(), true);
         $cicloFormativo->update($cicloFormativoData);
 
@@ -61,9 +85,12 @@ class CicloFormativoController extends Controller
      */
     public function destroy(FamiliaProfesional $familiaProfesional, CicloFormativo $cicloFormativo)
     {
+        Gate::authorize('delete', $cicloFormativo);
         try {
             $cicloFormativo->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'CicloFormativo eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

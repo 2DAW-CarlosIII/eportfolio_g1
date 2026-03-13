@@ -16,14 +16,14 @@ class ModuloFormativoController extends Controller
      */
     public function index(Request $request, CicloFormativo $cicloFormativo)
     {
-        $query = ModuloFormativo::where('ciclo_formativo_id', $cicloFormativo->id);
-
+      $query = ModuloFormativo::query()->where('ciclo_formativo_id', $cicloFormativo->id);
         if ($query) {
-            $query->where('nombre', 'like', '%' . $request->q . '%');
+            $query->where('nombre', 'like', '%' . $request->search. '%');
         }
 
         return ModuloFormativoResource::collection(
-            $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')->paginate($request->per_page)
+            $query->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
+            ->paginate($request->per_page)
         );
     }
     public function modulosImpartidos(Request $request)
@@ -40,11 +40,20 @@ class ModuloFormativoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,CicloFormativo $cicloFormativo)
     {
-        $moduloFormativo = json_decode($request->getContent(), true);
-
-        $moduloFormativo = ModuloFormativo::create($moduloFormativo);
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required',
+            'horas_totales' => 'required',
+            'curso_escolar' => 'required',
+            'centro'=> 'required'
+        ]);
+        
+        $request['ciclo_formativo_id'] = $cicloFormativo->id;
+        $request['docente_id'] = $request->user()->id;
+        $moduloFormativo = ModuloFormativo::create($request->all());
+       
 
         return new ModuloFormativoResource($moduloFormativo);
     }
@@ -75,7 +84,9 @@ class ModuloFormativoController extends Controller
     {
         try {
             $moduloFormativo->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'message' => 'ModuloFormativo eliminado correctamente'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()

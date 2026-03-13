@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('modulos_formativos', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('ciclo_formativo_id')->nullable();
+            $table->unsignedBigInteger('ciclo_formativo_id');
             $table->string('nombre');
             $table->string('codigo');
             $table->integer('horas_totales');

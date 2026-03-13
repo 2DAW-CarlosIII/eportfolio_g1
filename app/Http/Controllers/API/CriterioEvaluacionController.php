@@ -18,7 +18,7 @@ class CriterioEvaluacionController extends Controller
 
         $query = CriterioEvaluacion::query()->where('resultado_aprendizaje_id', $resultadoAprendizaje->id);
         if ($query) {
-            $query->where('codigo', 'like', '%' . $request->q . '%');
+            $query->where('descripcion', 'like', '%' . $request->search . '%');
         }
 
         return CriterioEvaluacionResource::collection(
@@ -32,9 +32,18 @@ class CriterioEvaluacionController extends Controller
      */
         public function store(Request $request, ResultadoAprendizaje $resultadoAprendizaje)
     {
-        $criterioEvaluacionData = json_decode($request->getContent(), true);
+        $request->validate([
+            'codigo' => 'required',
+            'descripcion' => 'required',
+        ]);
 
-        $criterioEvaluacion = CriterioEvaluacion::create($criterioEvaluacionData);
+        $criterioEvaluacion = CriterioEvaluacion::create([
+            'resultado_aprendizaje_id' => $resultadoAprendizaje->id,
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'peso_porcentaje' => $request->peso_porcentaje,
+            'orden' => $request->orden,
+        ]);
 
         return new CriterioEvaluacionResource($criterioEvaluacion);
     }
@@ -44,6 +53,12 @@ class CriterioEvaluacionController extends Controller
      */
     public function show(ResultadoAprendizaje $resultadoAprendizaje,CriterioEvaluacion $criterioEvaluacion)
     {
+        if ($criterioEvaluacion->resultado_aprendizaje_id != $resultadoAprendizaje->id) {
+            return response()->json([
+                'message' => 'No se puede mostrar el criterio de evaluación'
+            ], 400);
+        }
+        
         return new CriterioEvaluacionResource($criterioEvaluacion);
     }
 
@@ -63,13 +78,15 @@ class CriterioEvaluacionController extends Controller
      */
     public function destroy(ResultadoAprendizaje $resultadoAprendizaje, CriterioEvaluacion $criterioEvaluacion)
     {
-        try {
-            $criterioEvaluacion->delete();
-            return response()->json(null, 204);
-        } catch (\Exception $e) {
+        if ($criterioEvaluacion->resultado_aprendizaje_id != $resultadoAprendizaje->id) {
             return response()->json([
-                'message' => 'Error: ' . $e->getMessage()
+                'message' => 'No se puede eliminar el criterio de evaluación'
             ], 400);
+        }else{
+            $criterioEvaluacion->delete();
+            return response()->json([
+                'message' => 'Criterio de Evaluación eliminado correctamente'
+            ], 200);
         }
     }
 }

@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
+       
+
         Schema::create('evidencias', function (Blueprint $table) {
+
             $table->id();
             $table->unsignedBigInteger('estudiante_id')->nullable();
             $table->unsignedBigInteger('tarea_id')->nullable();
@@ -19,7 +23,12 @@ return new class extends Migration
             $table->string('descripcion');
             $table->enum('estado_validacion', ['pendiente', 'validada', 'rechazada']);
             $table->timestamps();
+            /* $table->foreign('estudiante_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade'); */
+
         });
+
+        
     }
 
     /**
