@@ -64,7 +64,7 @@ class RA5_1_InstalacionTest extends TestCase
 
     public function test_configuracion_del_ejercicio_4(): void
     {
-        $this->assertSame('eportfolio_g1', config('app.name'));
+        $this->assertSame('eportfolio', config('app.name'));
         $this->assertSame('http://eportfolio.test', config('app.url'));
     }
 
