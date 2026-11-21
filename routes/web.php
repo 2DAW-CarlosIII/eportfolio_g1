@@ -12,7 +12,7 @@ Route::prefix('evidencias')->name('evidencias.')->group(function () {
         })->name('index');
 
     Route::get('show/{id}', function ($id) { 
-        return view('evidencias.show', ['id' => $id, 'evidencia' => config('eportfolio.evidencias')[$id] ?? null]);
+        return view('evidencias.show', ['id' => $id, 'evidencias' => config('eportfolio.evidencias')]);
         })->name('show')->whereNumber('id');
 
     Route::get('create', function () { 
@@ -20,12 +20,12 @@ Route::prefix('evidencias')->name('evidencias.')->group(function () {
         })->name('create');
 
      Route::get('edit/{id}', function ($id) { 
-        return view('evidencias.edit', ['id' => $id, 'evidencia' => config('eportfolio.evidencias')[$id] ?? null]);
+        return view('evidencias.edit', ['id' => $id, 'evidencias' => config('eportfolio.evidencias')]);
         })->name('edit')->whereNumber('id');
 });
 
 Route::get('perfil/{id?}', function ($id = null){
-    return $id ? 'Perfil del usuario ' . $id : 'Mi perfil';
+    return view('perfil', ['id' => $id]);
  })->whereNumber('id')->name('perfil');
 
 Route::get('/acerca', function () {
