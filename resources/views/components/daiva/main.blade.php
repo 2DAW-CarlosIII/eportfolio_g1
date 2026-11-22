@@ -36,6 +36,7 @@
                     <h1 class="playfair font-bold text-2xl md:text-4xl xl:text-6xl">
                         Pantalla principal
                     </h1>
+                    <p>Portada del ePortfolio</p>
                     <p class="text-md text-gray-500">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, itaque veniam, sequi totam
                         asperiores omnis id facere quod exercitationem qui vitae perferendis eveniet! Dignissimos quia

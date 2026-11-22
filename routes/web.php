@@ -33,8 +33,8 @@ Route::prefix('proyectos')->name('proyectos.')->group(function () {
 
 Route::get('/perfil/{id?}', function ($id = null) {
     return $id
-        ? 'Visualizar el currículo de ' . $id
-        : 'Visualizar el currículo propio';
+        ? 'Perfil del usuario ' . $id . ' - Visualizar el currículo de ' . $id
+        : 'Mi perfil - Visualizar el currículo propio';
 })->whereNumber('id')->name('perfil');
 
 Route::get('/centro', function () {
