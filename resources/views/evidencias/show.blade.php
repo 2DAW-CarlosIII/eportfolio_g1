@@ -1,5 +1,5 @@
 @props(['id'=>null,'evidencias'])
-<x-layout :titulo='"Vista Detalle evidencias {$id}"'>
+<x-layout :titulo='"Evidencia {$id}"'>
     @isset($evidencias[$id])
     <ul>
         <x-tarjeta-proyecto :evidencias="$evidencias" :id="$id" />

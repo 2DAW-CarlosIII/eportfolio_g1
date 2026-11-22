@@ -1,4 +1,4 @@
-<x-layout :titulo="'Crear Evidencia'">
+<x-layout :titulo="'Nueva evidencia'">
     <form action="#" method="POST" class="mt-4 space-y-4">
         @csrf
         <div>

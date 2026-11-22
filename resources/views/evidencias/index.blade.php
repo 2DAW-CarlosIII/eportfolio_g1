@@ -1,5 +1,5 @@
 @props(['evidencias'])
-<x-layout :titulo="'Listado Evidencias'">
+<x-layout :titulo="'Listado de evidencias'">
     <ul>
         @forelse ($evidencias as $id => $evidencia)
             <x-tarjeta-proyecto :evidencias="$evidencias" :id="$id" />

@@ -1,4 +1,4 @@
-<x-layout :titulo='"Editar Evidencia {$id}"'>
+<x-layout :titulo='"Modificar evidencia {$id}"'>
     @isset($evidencias[$id])
         <form action="#" method="POST" class="space-y-4">
             @csrf
