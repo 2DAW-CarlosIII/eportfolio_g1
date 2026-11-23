@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home', ['centro' => config('eportfolio.centro')]);
-});
+Route::get('/', App\Http\Controllers\HomeController::class)->name('home');
 
 Route::prefix('evidencias')->name('evidencias.')->group(function () {
     Route::get('/', function () { 
@@ -24,9 +22,7 @@ Route::prefix('evidencias')->name('evidencias.')->group(function () {
         })->name('edit')->whereNumber('id');
 });
 
-Route::get('perfil/{id?}', function ($id = null){
-    return view('perfil', ['id' => $id]);
- })->whereNumber('id')->name('perfil');
+Route::get('perfil/{id?}', App\Http\Controllers\PerfilController::class)->whereNumber('id')->name('perfil');
 
 Route::get('/acerca', function () {
     return [
