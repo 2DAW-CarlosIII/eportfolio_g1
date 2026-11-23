@@ -1,8 +1,8 @@
 <x-layout :id="$id">
-    <h1>Perfil</h1>
-    <p>Visualizar el currículo
+    <h1>Mi perfil</h1>
+    <p>Perfil del usuario
         @isset($id)
-            de {{ $id }}
+            {{ $id }}
         @else
             propio
         @endisset
