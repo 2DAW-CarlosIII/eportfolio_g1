@@ -7,3 +7,26 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@theme {
+    --font-sans: "Roboto", sans-serif;
+    --font-playfair: "Playfair Display", serif;
+}
+
+.playfair {
+    font-family: var(--font-playfair);
+}
+
+.bg-skew:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    transform: skewY(-5deg);
+    transform-origin: top left;
+    z-index: -1;
+    background-color: #ececec;
+    min-height: 600px;
+}
