@@ -3,6 +3,11 @@
         <a href="{{ url('/') }}">
             <img src="{{ asset('images/logo-eportfolio.svg') }}" alt="eportfolio" class="h-12">
         </a>
+        <a href="{{ route('modulos-formativos.index') }}" @class([
+            'font-semibold',
+            'text-blue-700' => request()->routeIs('modulos-formativos.*'),
+            'text-gray-600 hover:text-gray-900' => ! request()->routeIs('modulos-formativos.*'),
+        ])>Módulos Formativos</a>
         <a href="{{ route('evidencias.index') }}" @class([
             'font-semibold',
             'text-blue-700' => request()->routeIs('evidencias.*'),
