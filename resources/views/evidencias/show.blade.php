@@ -1,8 +1,8 @@
-@props(['id'=>null,'evidencias'])
+@props(['id'=>null,'evidencia'])
 <x-layout :titulo='"Evidencia {$id}"'>
-    @isset($evidencias[$id])
+    @isset($evidencia)
     <ul>
-        <x-tarjeta-proyecto :evidencias="$evidencias" :id="$id" />
+        <x-tarjeta-evidencia-show :evidencia="$evidencia" :id="$id" />
     </ul>
     @else
         <p class="text-red-700">No se encontró la evidencia con ID {{ $id }}.</p>
