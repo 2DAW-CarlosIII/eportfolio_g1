@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 Route::get('/', App\Http\Controllers\HomeController::class)->name('home');
 
 Route::prefix('evidencias')->name('evidencias.')->group(function () {
@@ -29,3 +28,4 @@ Route::get('/acerca', function () {
         'aplicacion' => config('app.name'),
         'centro' => config('eportfolio.centro')];
  })->name('acerca');
+ require __DIR__ . '/familias-profesionales.php';
