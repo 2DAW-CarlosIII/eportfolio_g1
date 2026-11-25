@@ -29,3 +29,5 @@ Route::get('/acerca', function () {
         'aplicacion' => config('app.name'),
         'centro' => config('eportfolio.centro')];
  })->name('acerca');
+
+require __DIR__.'/ciclos-formativos.php';
