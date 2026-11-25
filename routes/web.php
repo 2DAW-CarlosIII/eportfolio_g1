@@ -29,4 +29,6 @@ Route::get('/acerca', function () {
         'aplicacion' => config('app.name'),
         'centro' => config('eportfolio.centro')];
  })->name('acerca');
+
+ require __DIR__.'/modulos-formativos.php';
  require __DIR__ . '/familias-profesionales.php';
