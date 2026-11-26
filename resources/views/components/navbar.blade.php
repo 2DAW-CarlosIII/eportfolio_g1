@@ -3,16 +3,21 @@
         <a href="{{ url('/') }}">
             <img src="{{ asset('images/logo-eportfolio.svg') }}" alt="eportfolio" class="h-12">
         </a>
-        <a href="{{ route('modulos-formativos.index') }}" @class([
-            'font-semibold',
-            'text-blue-700' => request()->routeIs('modulos-formativos.*'),
-            'text-gray-600 hover:text-gray-900' => ! request()->routeIs('modulos-formativos.*'),
-        ])>Módulos Formativos</a>
         <a href="{{ route('familias-profesionales.index') }}" @class([
             'font-semibold',
             'text-blue-700' => request()->routeIs('familias-profesionales.*'),
             'text-gray-600 hover:text-gray-900' => ! request()->routeIs('familias-profesionales.*'),
         ])>Familias Profesionales</a>
+        <a href="{{ route('ciclos-formativos.index') }}" @class([
+            'font-semibold',
+            'text-blue-700' => request()->routeIs('ciclos-formativos.*'),
+            'text-gray-600 hover:text-gray-900' => ! request()->routeIs('ciclos-formativos.*'),
+        ])>Ciclos formativos</a>
+        <a href="{{ route('modulos-formativos.index') }}" @class([
+            'font-semibold',
+            'text-blue-700' => request()->routeIs('modulos-formativos.*'),
+            'text-gray-600 hover:text-gray-900' => ! request()->routeIs('modulos-formativos.*'),
+        ])>Módulos Formativos</a>
         <a href="{{ route('evidencias.index') }}" @class([
             'font-semibold',
             'text-blue-700' => request()->routeIs('evidencias.*'),
@@ -23,11 +28,7 @@
             'text-blue-700' => request()->routeIs('perfil'),
             'text-gray-600 hover:text-gray-900' => ! request()->routeIs('perfil'),
         ])>Mi perfil</a>
-        <a href="{{ route('ciclos-formativos.index') }}" @class([
-            'font-semibold',
-            'text-blue-700' => request()->routeIs('ciclos-formativos.*'),
-            'text-gray-600 hover:text-gray-900' => ! request()->routeIs('ciclos-formativos.*'),
-        ])>Ciclos formativos</a>
+        
         <a class="flex items-center bg-gray-300 gap-2 p-2 px-6 text-black rounded-full hover:text-white hover:bg-gray-600"
                         href="signin.html">
             <i class="bi bi-box-arrow-in-right"></i>
