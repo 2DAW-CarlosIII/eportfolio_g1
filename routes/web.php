@@ -30,4 +30,6 @@ Route::get('/acerca', function () {
         'centro' => config('eportfolio.centro')];
  })->name('acerca');
 
-require __DIR__.'/ciclos-formativos.php';
+ require __DIR__.'/ciclos-formativos.php';
+ require __DIR__.'/modulos-formativos.php';
+ require __DIR__ . '/familias-profesionales.php';
