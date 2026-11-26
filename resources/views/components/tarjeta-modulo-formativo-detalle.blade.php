@@ -1,24 +1,28 @@
 @props(['moduloFormativo', 'id'])
 
     <li class="rounded-lg bg-white p-4 shadow">
-        <div class="space-y-3 sm:col-span-2">
-            <h2 class="text-2xl font-semibold">
+            <h2 class="text-lg font-semibold">
                 <a href="{{ route('modulos-formativos.show', $id) }}"> {{ $moduloFormativo['nombre'] }}</a>
             </h2>
-            <p><strong>Código</strong> {{ $moduloFormativo['codigo'] }}</p>
-            <p><strong>Código Ciclo Formativo</strong> {{ $moduloFormativo['codigo_ciclo'] }}</p>
-            <p><strong>Horas Totales</strong> {{ $moduloFormativo['horas_totales'] }}</p>
-            <p><strong>Curso Escolar</strong> {{ $moduloFormativo['curso_escolar'] }}</p>
-            <p><strong>Centro</strong> {{ $moduloFormativo['centro'] }}</p>
-            <p><strong>Descripción</strong> {{ $moduloFormativo['descripcion'] }}</p>
+            <p class="text-sm text-gray-500">Código: {{ $moduloFormativo['codigo'] }}</p>
+            <p class="text-sm text-gray-500">Código Ciclo Formativo: {{ $moduloFormativo['codigo_ciclo'] }}</p>
+            <p class="text-sm text-gray-500">Horas Totales: {{ $moduloFormativo['horas_totales'] }}</p>
+            <p class="text-sm text-gray-500">Curso Escolar: {{ $moduloFormativo['curso_escolar'] }}</p>
+            <p class="text-sm text-gray-500">Centro: {{ $moduloFormativo['centro'] }}</p>
+            <p class="text-sm text-gray-500"> {{ $moduloFormativo['descripcion'] }}</p>
 
-            <div class="flex gap-3 pt-2">
-                <boton>
-                    <a href="{{ route('modulos-formativos.edit', $id) }}">Editar Módulo Formativo</a>
-                </boton>
-                <boton>
-                    <a href="{{ route('modulos-formativos.index') }}">Volver al listado</a>
-                </boton>
+            <div class="mt-auto flex flex-wrap items-center gap-3 pt-5">
+        
+            @if (!request()->routeIs('modulos-formativos.edit'))
+                <a href="{{ route('modulos-formativos.edit', $id) }}" class="rounded-md bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                Editar
+                </a>
+            @endif
+            @if (!request()->routeIs('modulos-formativos.index'))
+                <a href="{{ route('modulos-formativos.index', $id) }}" class="rounded-md bg-gray-700 px-3 py-2 text-sm font-medium text-white hover:bg-gray-800">
+                    Volver al listado
+                </a>
+            @endif
             </div>
-        </div>
+            
     </li>
