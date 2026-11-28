@@ -9,5 +9,11 @@
             </div>
         </div>
     @endsession
+    <div class="w-full max-w-5xl mx-auto flex flex-col gap-4 mb-8">
+        <div class="flex flex-col gap-4">
+            <h1 class="playfair font-bold text-2xl">{{ $titulo }}</h1>
+            <hr class="border-gray-300 border-t-2">
+        </div>
+    </div>
     {{ $slot }}
 </x-daiva.layout>

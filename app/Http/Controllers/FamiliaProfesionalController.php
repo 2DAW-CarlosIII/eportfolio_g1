@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Http\Requests\FamiliaProfesionalRequest;
 
 class FamiliaProfesionalController extends Controller
 {
@@ -143,7 +142,7 @@ class FamiliaProfesionalController extends Controller
      */
     public function index()
     {
-        return view('familias-profesionales.index', ['familiasProfesionales' => $this-> arrayFamiliaProfesional]); 
+        return view('familias-profesionales.index', ['familiasProfesionales' => $this->arrayFamiliaProfesional]);
     }
 
     /**
@@ -157,9 +156,10 @@ class FamiliaProfesionalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FamiliaProfesionalRequest $request)
     {
-        //
+        $datos = $request->validated();
+        return redirect()->route('familias-profesionales.index')->with('mensaje', "Familia profesional «{$datos['nombre']}» creada.");
     }
 
     /**
@@ -168,7 +168,7 @@ class FamiliaProfesionalController extends Controller
     public function show(string $id)
     {
         abort_unless(isset($this->arrayFamiliaProfesional[$id]), 404);
-         return view('familias-profesionales.show', ['id' => $id, 'familiaProfesional' => $this->arrayFamiliaProfesional[$id] ?? []]);
+        return view('familias-profesionales.show', ['id' => $id, 'familiaProfesional' => $this->arrayFamiliaProfesional[$id]]);
     }
 
     /**
@@ -177,15 +177,17 @@ class FamiliaProfesionalController extends Controller
     public function edit(string $id)
     {
         abort_unless(isset($this->arrayFamiliaProfesional[$id]), 404);
-         return view('familias-profesionales.edit', ['id' => $id, 'familiaProfesional' => $this->arrayFamiliaProfesional[$id] ?? []]);
+        return view('familias-profesionales.edit', ['id' => $id, 'familiaProfesional' => $this->arrayFamiliaProfesional[$id]]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FamiliaProfesionalRequest $request, string $id)
     {
-        //
+        abort_unless(isset($this->arrayFamiliaProfesional[$id]), 404);
+        $this->arrayFamiliaProfesional[$id] = $request->validated();
+        return redirect()->route('familias-profesionales.show', ['id' => $id])->with('mensaje', "Familia profesional «{$this->arrayFamiliaProfesional[$id]['nombre']}» actualizada.");
     }
 
     /**
