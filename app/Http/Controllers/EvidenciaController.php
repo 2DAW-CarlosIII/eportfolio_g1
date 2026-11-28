@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\EstadoValidado;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\EvidenciaRequest;
 
 class EvidenciaController extends Controller
 {
@@ -49,6 +51,29 @@ class EvidenciaController extends Controller
         abort_unless(isset($this->evidencias[$id]), 404);
 
         return view('evidencias.edit', ['id' => $id, 'evidencia' => $this->evidencias[$id]]);
+    }
+    
+    public function store(EvidenciaRequest $request): RedirectResponse
+    {
+        $datos = $request->validated();
+
+        // Aquí se guardaría en la base de datos.
+
+        return redirect()->route('evidencias.index')
+            ->with('mensaje', "Evidencia «{$datos['descripcion']}» creada.");
+            
+    }
+
+    public function update(EvidenciaRequest $request, int $id): RedirectResponse
+    {
+        abort_unless(isset($this->evidencias[$id]), 404);
+
+        $datos = $request->validated();
+
+        // Aquí se actualizaría en la base de datos.
+
+        return redirect()->route('evidencias.show', $id)
+             ->with('mensaje', "Evidencia «{$datos['descripcion']}» actualizada.");
     }
 
 }

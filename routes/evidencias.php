@@ -10,4 +10,6 @@ Route::controller(EvidenciaController::class)->prefix('evidencias')->name('evide
     Route::get('show/{id}', 'show')->whereNumber('id')->name('show');
     Route::get('create', 'create')->name('create');
     Route::get('edit/{id}', 'edit')->whereNumber('id')->name('edit');
+    Route::post('/', 'store')->name('store');
+    Route::put('edit/{id}', 'update')->whereNumber('id')->name('update');
 });
