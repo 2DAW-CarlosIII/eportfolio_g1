@@ -9,6 +9,9 @@
     @endif
     
     <div class="mt-auto flex flex-wrap items-center gap-3 pt-5">
+        <a href="{{ route('familias-profesionales.create') }}" class="rounded-md bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800">
+            Crear nueva Familia Profesional
+        </a>
         @if (!request()->routeIs('familias-profesionales.show'))
             <a href="{{ route('familias-profesionales.show', $id) }}" class="rounded-md bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800">
             Más información
